@@ -1,0 +1,15 @@
+# config/_default/languages.en.toml
+
+title = "Run PostgreSQL the Kubernetes Way"
+
+[author]
+name = "Gabriele Bartolini"
+image = "img/author.jpg"
+headline = "VP of Cloud Native at EDB"
+bio = "VP of Cloud Native at EDB"
+links = [
+  { twitter = "https://twitter.com/_GBartolini_" },
+  { facebook = "https://it-it.facebook.com/people/Gabriele-Bartolini/pfbid0h2Cpmi3iCvCxYBznuq9J1GVEswEmagJtnDKJJdPbZgprn2BC63GJJuit9cW6bxFDl/" },
+  { linkedin = "https://www.linkedin.com/in/gbartolini/" },
+  { youtube = "https://www.youtube.com/watch?v=4SR_9fQ82gs" },
+]

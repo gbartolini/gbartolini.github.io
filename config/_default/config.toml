@@ -1,0 +1,4 @@
+# config/_default/config.toml
+
+baseURL = "https://your_domain.com/"
+languageCode = "en"
