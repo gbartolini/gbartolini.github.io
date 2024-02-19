@@ -1,6 +1,6 @@
 ---
-title: "The first post"
-description: "Post's description"
+title: "My blog articles"
+description: "Here are my posts about running PostgreSQL databases in Kubernetes with CloudNativePG. Opinions are my own."
 
 cascade:
   showDate: true
@@ -9,8 +9,9 @@ cascade:
   invertPagination: true
 ---
 
-Lorem ipsum dolor sit amet. Qui autem numquam aut consequatur commodi sed pariatur totam ut fuga quaerat. Et omnis vero aut amet iusto in aliquid voluptatem.
+Check out my posts on navigating [PostgreSQL](https://postgresql.org) databases
+in [Kubernetes](https://kubernetes.io) using [CloudNativePG](https://cloudnative-pg.io).
+We'll be exploring a fully open-source stack that's a breeze to deploy anywhere –
+from on-premises setups to multi-cloud adventures.
 
-Et neque consequatur rem debitis quod qui perferendis consequatur. Ut internos soluta est dolor impedit 33 dicta explicabo et voluptate nulla nam blanditiis quae. Qui minus quidem in libero sapiente ut nihil deleniti eum architecto quibusdam sit sunt debitis sed eaque minus.
-
-Ad ipsam consequatur aut laborum error et maxime nesciunt est atque quia est aspernatur dicta. Vel omnis expedita et autem recusandae est alias maxime quo dolorum pariatur vel iste velit?
+*Just a heads up, the opinions shared here are all mine*.

@@ -1,6 +1,6 @@
 # Gabriele Bartolini - Blog
 
-## How to clone this repo 
+## How to clone this repo
 
 This git repository contain the `congo` theme as a submodule, and need to be
 cloned with the `--recursive` option:

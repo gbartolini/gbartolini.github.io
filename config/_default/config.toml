@@ -1,4 +1,12 @@
 # config/_default/config.toml
 
-baseURL = "https://your_domain.com/"
+baseURL = "https://gabrielebartolini.it/"
 languageCode = "en"
+googleAnalytics = "G-7GCNBCVX6R"
+canonifyURLs = true
+
+[permalinks]
+  [permalinks.page]
+    posts = '/articles/:year/:month/:slug/'
+  [permalinks.section]
+    posts = '/articles/'
