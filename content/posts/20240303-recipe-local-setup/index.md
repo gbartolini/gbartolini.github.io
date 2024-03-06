@@ -100,12 +100,12 @@ installation of CloudNativePG.
 To deploy the latest stable version, refer to the
 [CloudNativePG documentation for instructions on installing the operator via Kubernetes manifests](https://cloudnative-pg.io/documentation/current/installation_upgrade/#directly-using-the-operator-manifest).
 
-For instance, to install version 1.22.1, the latest available at the time of
+For instance, to install version 1.22.2, the latest available at the time of
 writing, use the following command:
 
 ```sh
 kubectl apply --server-side -f \
-  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.22/releases/cnpg-1.22.1.yaml
+  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.22/releases/cnpg-1.22.2.yaml
 ```
 
 This command creates a `Deployment` resource named `cnpg-controller-manager`
@@ -220,7 +220,7 @@ Namespace:           default
 System ID:           7342047578820919323
 PostgreSQL Image:    ghcr.io/cloudnative-pg/postgresql:16.1
 Primary instance:    cluster-example-1
-Primary start time:  2024-03-03 08:14:28 +0000 UTC (uptime 14m32s)
+Primary start time:  2024-03-21 08:14:28 +0000 UTC (uptime 14m32s)
 Status:              Cluster in healthy state
 Instances:           3
 Ready instances:     3
@@ -258,9 +258,9 @@ No managed tablespaces
 Instances status
 Name               Database Size  Current LSN  Replication role  Status  QoS         Manager Version  Node
 ----               -------------  -----------  ----------------  ------  ---         ---------------  ----
-cluster-example-1  29 MB          0/8000000    Primary           OK      BestEffort  1.22.1           cnpg-control-plane
-cluster-example-2  29 MB          0/8000000    Standby (async)   OK      BestEffort  1.22.1           cnpg-control-plane
-cluster-example-3  29 MB          0/8000000    Standby (async)   OK      BestEffort  1.22.1           cnpg-control-plane
+cluster-example-1  29 MB          0/8000000    Primary           OK      BestEffort  1.22.2           cnpg-control-plane
+cluster-example-2  29 MB          0/8000000    Standby (async)   OK      BestEffort  1.22.2           cnpg-control-plane
+cluster-example-3  29 MB          0/8000000    Standby (async)   OK      BestEffort  1.22.2           cnpg-control-plane
 ```
 
 This tool becomes indispensable as it provides essential insights into your
