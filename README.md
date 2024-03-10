@@ -29,3 +29,7 @@ hugo serve --buildDrafts
 ```
 
 The site will be served at http://localhost:1313
+
+## Date of an article
+
+Use `date -Iseconds` to set the date of an article before publishing it.
