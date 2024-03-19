@@ -25,7 +25,7 @@ brew install hugo
 ## How to start the development server
 
 ```
-hugo serve --buildDrafts
+hugo serve --buildDrafts --buildFuture
 ```
 
 The site will be served at http://localhost:1313
