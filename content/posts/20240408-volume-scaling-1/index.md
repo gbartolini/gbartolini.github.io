@@ -282,9 +282,9 @@ are the perfect places to run these critical experiments: you don’t want to
 discover that your storage layer doesn’t honour data durability in the
 performance environment (i.e., operations, production, or execution).
 
-In the following article, I will continue covering the vertical scalability of
-PostgreSQL databases with storage, focusing on tablespaces and horizontal table
-partitioning.
+In the [next article]({{< relref "../20240416-volume-scaling-2/index.md">}}),
+I continue covering the vertical scalability of PostgreSQL databases with
+storage, focusing on tablespaces and horizontal table partitioning.
 
 ---
 
