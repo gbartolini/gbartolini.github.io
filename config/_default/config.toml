@@ -1,6 +1,6 @@
 # config/_default/config.toml
 
-baseURL = "https://gabrielebartolini.it/"
+baseURL = "https://www.gabrielebartolini.it/"
 languageCode = "en"
 googleAnalytics = "G-7GCNBCVX6R"
 canonifyURLs = true
