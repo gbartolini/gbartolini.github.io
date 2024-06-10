@@ -19,6 +19,9 @@ your future CloudNativePG explorations with a fully open source stack._
 
 <!--more-->
 
+_NOTE: this article has been updated on June 10th, 2024 with the most recent
+versions of `kind` and `cloudnative-pg`._
+
 ---
 
 Ciao! Welcome to my inaugural recipe on running Postgres in Kubernetes with
@@ -47,8 +50,8 @@ Start by confirming your kind installation using the following command:
 kind version
 ```
 
-On my laptop, as of the time of writing, the output is
-`kind v0.22.0 go1.21.7 darwin/amd64`.
+On my laptop, as of the time of the last update (June 10th, 2024),
+the output is `kind v0.23.0 go1.22.3 darwin/amd64`.
 
 Now, proceed to establish your initial local Kubernetes cluster for
 CloudNativePG with:
@@ -61,7 +64,7 @@ Upon execution, you'll observe the following output:
 
 ```console
 Creating cluster "cnpg" ...
- ✓ Ensuring node image (kindest/node:v1.29.2) 🖼
+ ✓ Ensuring node image (kindest/node:v1.30.0) 🖼
  ✓ Preparing nodes 📦
  ✓ Writing configuration 📜
  ✓ Starting control-plane 🕹️
@@ -100,12 +103,12 @@ installation of CloudNativePG.
 To deploy the latest stable version, refer to the
 [CloudNativePG documentation for instructions on installing the operator via Kubernetes manifests](https://cloudnative-pg.io/documentation/current/installation_upgrade/#directly-using-the-operator-manifest).
 
-For instance, to install version 1.22.2, the latest available at the time of
+For instance, to install version 1.23.1, the latest available at the time of
 writing, use the following command:
 
 ```sh
 kubectl apply --server-side -f \
-  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.22/releases/cnpg-1.22.2.yaml
+  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.23/releases/cnpg-1.23.1.yaml
 ```
 
 This command creates a `Deployment` resource named `cnpg-controller-manager`
@@ -217,21 +220,21 @@ This command typically yields output similar to:
 Cluster Summary
 Name:                cluster-example
 Namespace:           default
-System ID:           7342047578820919323
-PostgreSQL Image:    ghcr.io/cloudnative-pg/postgresql:16.1
+System ID:           7378800595028312089
+PostgreSQL Image:    ghcr.io/cloudnative-pg/postgresql:16.2
 Primary instance:    cluster-example-1
-Primary start time:  2024-03-21 08:14:28 +0000 UTC (uptime 14m32s)
+Primary start time:  2024-06-10 09:14:57 +0000 UTC (uptime 1m46s)
 Status:              Cluster in healthy state
 Instances:           3
 Ready instances:     3
-Current Write LSN:   0/8000000 (Timeline: 1 - WAL File: 000000010000000000000007)
+Current Write LSN:   0/604DFA8 (Timeline: 1 - WAL File: 000000010000000000000006)
 
 Certificates Status
 Certificate Name             Expiration Date                Days Left Until Expiration
 ----------------             ---------------                --------------------------
-cluster-example-ca           2024-06-01 08:09:01 +0000 UTC  89.99
-cluster-example-replication  2024-06-01 08:09:01 +0000 UTC  89.99
-cluster-example-server       2024-06-01 08:09:01 +0000 UTC  89.99
+cluster-example-ca           2024-09-08 09:09:30 +0000 UTC  89.99
+cluster-example-replication  2024-09-08 09:09:30 +0000 UTC  89.99
+cluster-example-server       2024-09-08 09:09:30 +0000 UTC  89.99
 
 Continuous Backup status
 Not configured
@@ -243,8 +246,8 @@ Streaming Replication status
 Replication Slots Enabled
 Name               Sent LSN   Write LSN  Flush LSN  Replay LSN  Write Lag  Flush Lag  Replay Lag  State      Sync State  Sync Priority  Replication Slot
 ----               --------   ---------  ---------  ----------  ---------  ---------  ----------  -----      ----------  -------------  ----------------
-cluster-example-2  0/8000000  0/8000000  0/8000000  0/8000000   00:00:00   00:00:00   00:00:00    streaming  async       0              active
-cluster-example-3  0/8000000  0/8000000  0/8000000  0/8000000   00:00:00   00:00:00   00:00:00    streaming  async       0              active
+cluster-example-2  0/604DFA8  0/604DFA8  0/604DFA8  0/604DFA8   00:00:00   00:00:00   00:00:00    streaming  async       0              active
+cluster-example-3  0/604DFA8  0/604DFA8  0/604DFA8  0/604DFA8   00:00:00   00:00:00   00:00:00    streaming  async       0              active
 
 Unmanaged Replication Slot Status
 No unmanaged replication slots found
@@ -255,12 +258,18 @@ No roles managed
 Tablespaces status
 No managed tablespaces
 
+Pod Disruption Budgets status
+Name                     Role     Expected Pods  Current Healthy  Minimum Desired Healthy  Disruptions Allowed
+----                     ----     -------------  ---------------  -----------------------  -------------------
+cluster-example          replica  2              2                1                        1
+cluster-example-primary  primary  1              1                1                        0
+
 Instances status
 Name               Database Size  Current LSN  Replication role  Status  QoS         Manager Version  Node
 ----               -------------  -----------  ----------------  ------  ---         ---------------  ----
-cluster-example-1  29 MB          0/8000000    Primary           OK      BestEffort  1.22.2           cnpg-control-plane
-cluster-example-2  29 MB          0/8000000    Standby (async)   OK      BestEffort  1.22.2           cnpg-control-plane
-cluster-example-3  29 MB          0/8000000    Standby (async)   OK      BestEffort  1.22.2           cnpg-control-plane
+cluster-example-1  29 MB          0/604DFA8    Primary           OK      BestEffort  1.23.1           kind-control-plane
+cluster-example-2  29 MB          0/604DFA8    Standby (async)   OK      BestEffort  1.23.1           kind-control-plane
+cluster-example-3  29 MB          0/604DFA8    Standby (async)   OK      BestEffort  1.23.1           kind-control-plane
 ```
 
 This tool becomes indispensable as it provides essential insights into your
