@@ -201,9 +201,9 @@ Returning:
 As mentioned, you could even add a second temporary tablespace:
 
 ```yaml
-# &lt;snip>
+# <snip>
   tablespaces:
-  # &lt;snip>
+  # <snip>
   - name: tmptbs2
     temporary: true
     storage:
