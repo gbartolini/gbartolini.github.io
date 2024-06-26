@@ -177,6 +177,16 @@ fencing, hibernation, backups, and point-in-time recovery, improves security by
 default, and facilitates integration with observability tools like Prometheus,
 Grafana, Fluentbit, etc.
 
+[In this article from ComputerWeekly.com](https://www.computerweekly.com/feature/Kubernetes-at-10-Building-stateful-app-storage-and-data-protection),
+Michelle Au, a Kubernetes Storage developer at Google and my co-speaker at KubeCon NA 2023 on
+["Disaster Recovery with Very Large Postgres Databases"](https://www.youtube.com/watch?v=WGQq4MWzW6E&ab_channel=CNCF%5BCloudNativeComputingFoundation%5D),
+discusses the crucial role of operators for managing stateful workloads such as
+databases. She provides a compelling insight:
+
+> Kubernetes has come a long way from 'no way I would run a database on
+> Kubernetes' to 'I’m running databases at petabyte scale with automated
+> rolling upgrades.'
+
 As a maintainer and co-founder, I recommend CloudNativePG, an operator that
 incorporates nearly 20 years of experience managing mission-critical production
 databases with EDB and, previously, with 2ndQuadrant.
