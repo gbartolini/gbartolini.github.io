@@ -103,12 +103,12 @@ installation of CloudNativePG.
 To deploy the latest stable version, refer to the
 [CloudNativePG documentation for instructions on installing the operator via Kubernetes manifests](https://cloudnative-pg.io/documentation/current/installation_upgrade/#directly-using-the-operator-manifest).
 
-For instance, to install version 1.23.1, the latest available at the time of
+For instance, to install version 1.23.2, the latest available at the time of
 writing, use the following command:
 
 ```sh
 kubectl apply --server-side -f \
-  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.23/releases/cnpg-1.23.1.yaml
+  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.23/releases/cnpg-1.23.2.yaml
 ```
 
 This command creates a `Deployment` resource named `cnpg-controller-manager`
@@ -267,9 +267,9 @@ cluster-example-primary  primary  1              1                1             
 Instances status
 Name               Database Size  Current LSN  Replication role  Status  QoS         Manager Version  Node
 ----               -------------  -----------  ----------------  ------  ---         ---------------  ----
-cluster-example-1  29 MB          0/604DFA8    Primary           OK      BestEffort  1.23.1           kind-control-plane
-cluster-example-2  29 MB          0/604DFA8    Standby (async)   OK      BestEffort  1.23.1           kind-control-plane
-cluster-example-3  29 MB          0/604DFA8    Standby (async)   OK      BestEffort  1.23.1           kind-control-plane
+cluster-example-1  29 MB          0/604DFA8    Primary           OK      BestEffort  1.23.2           kind-control-plane
+cluster-example-2  29 MB          0/604DFA8    Standby (async)   OK      BestEffort  1.23.2           kind-control-plane
+cluster-example-3  29 MB          0/604DFA8    Standby (async)   OK      BestEffort  1.23.2           kind-control-plane
 ```
 
 This tool becomes indispensable as it provides essential insights into your
