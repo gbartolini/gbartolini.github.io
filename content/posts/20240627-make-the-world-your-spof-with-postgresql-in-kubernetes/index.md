@@ -1,7 +1,7 @@
 ---
 title: "Making the world my single point of failure with PostgreSQL"
 date: 2024-06-27T09:30:00+02:00
-description: ""
+description: "Explore how CloudNativePG 1.24 enhances PostgreSQL management in Kubernetes by enabling seamless cluster switchovers across cloud regions, ensuring high availability and disaster recovery."
 tags: ["PostgreSQL", "postgres", "kubernetes", "k8s", "cloudnativepg", "postgresql", "postgres", "DoK", "data on kubernetes", "CNPG", "switchover", "demotion", "data centre", "promotion", "distributed topology", "primary cluster", "replica cluster", "distributed databases", "high availability", "disaster recovery", "multi-region deployments", "IaC"]
 cover: cover.png
 thumb: thumb.png
