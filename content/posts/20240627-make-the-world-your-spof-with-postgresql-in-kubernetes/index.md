@@ -30,15 +30,19 @@ Kubernetes._
 
 <!--more-->
 
+_NOTE: this article has been updated on July 30th, 2024 covering CloudNativePG
+1.24.0-rc1._
+
 ---
 
-Among the exciting updates in the upcoming CloudNativePG 1.24 release, one
-groundbreaking feature stands out: the **ability to declaratively control the
-switchover of PostgreSQL clusters across different regions** — or, more precisely,
-different Kubernetes clusters. This feature enables the demotion of a primary
-cluster and the promotion of a replica cluster without the need to re-clone the
-former primary, streamlining and enhancing the efficiency of database
-management practices.
+One of the most groundbreaking features in the upcoming CloudNativePG 1.24
+release, now available in [preview with version 1.24.0-rc1](https://cloudnative-pg.io/releases/cloudnative-pg-1-24.0-rc1-released/),
+is the **ability to declaratively control the switchover of PostgreSQL clusters
+across different regions** — or more specifically, across different Kubernetes
+clusters. This feature allows for the demotion of a primary cluster and the
+promotion of a replica cluster without the need to re-clone the former primary,
+significantly streamlining and enhancing the efficiency of database management
+practices.
 
 While CloudNativePG traditionally operates within a single Kubernetes cluster,
 we've expanded its capabilities to define a distributed topology for PostgreSQL
@@ -538,11 +542,12 @@ the storage, the data centre, the region, the continent, and, why not, the
 world!
 
 In my next blog article, I will continue this topic by providing a repeatable
-example on AWS EKS. In the meantime, you can test the feature using the
-[latest snapshot of CloudNativePG](https://cloudnative-pg.io/documentation/current/installation_upgrade/#testing-the-latest-development-snapshot)
+example on AWS EKS. In the meantime, you can test the feature using
+[CloudNativePG 1.24.0-rc1](https://cloudnative-pg.io/releases/cloudnative-pg-1-24.0-rc1-released/)
 with [my playground for AWS EKS](https://github.com/gbartolini/postgres-kubernetes-playground/tree/main/aws-eks).
-Stay tuned for the next release of CloudNativePG, and don't miss the
-opportunity to participate in the release candidate program for version 1.24.0!
+Stay tuned for the next release of CloudNativePG, currently planned for the end
+of August, and don't miss the opportunity to
+[participate in the release candidate program for version 1.24.0](https://cloudnative-pg.io/documentation/preview/preview_version/)!
 
 ---
 
