@@ -1,0 +1,11 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: jimi
+spec:
+  instances: 3
+  imageName: ghcr.io/cloudnative-pg/postgresql:18-minimal-trixie
+  storage:
+    size: 5Gi
+  walStorage:
+    size: 1Gi
