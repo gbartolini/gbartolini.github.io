@@ -1,0 +1,12 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Publication
+metadata:
+  name: pg-15-publisher
+spec:
+  cluster:
+    name: pg-15
+  dbname: app
+  name: publisher
+  target:
+    allTables: true
+  publicationReclaimPolicy: delete

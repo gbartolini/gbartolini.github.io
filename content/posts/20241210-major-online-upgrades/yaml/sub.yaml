@@ -1,0 +1,13 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Subscription
+metadata:
+  name: pg-17-subscription
+spec:
+  cluster:
+    name: pg-17
+  dbname: app
+  name: subscriber
+  externalClusterName: pg-15
+  publicationName: publisher
+  subscriptionReclaimPolicy: delete
+

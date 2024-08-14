@@ -1,0 +1,9 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: pg-15
+spec:
+  instances: 3
+
+  storage:
+    size: 1Gi

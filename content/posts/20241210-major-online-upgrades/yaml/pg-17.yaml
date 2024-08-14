@@ -1,0 +1,31 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: pg-17
+spec:
+  instances: 3
+
+  storage:
+    size: 1Gi
+
+  # Use the microservice import for the schema
+  bootstrap:
+    initdb:
+      import:
+        type: microservice
+        schemaOnly: true
+        databases:
+          - app
+        source:
+          externalCluster: pg-15
+
+  # Define the "publisher"
+  externalClusters:
+  - name: pg-15
+    connectionParameters:
+      host: pg-15-rw.default.svc
+      user: app
+      dbname: app
+    password:
+      name: pg-15-app
+      key: password
