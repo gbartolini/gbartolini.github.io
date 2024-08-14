@@ -1,0 +1,11 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: pgvector-app
+spec:
+  name: app
+  owner: app
+  cluster:
+    name: pgvector
+  extensions:
+  - name: vector
