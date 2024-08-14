@@ -1,0 +1,43 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: angus
+spec:
+  imageName: ghcr.io/cloudnative-pg/postgresql:18-minimal-trixie
+  instances: 1
+
+  storage:
+    size: 1Gi
+
+  postgresql:
+    extensions:
+    - name: pgvector
+      image:
+        reference: ghcr.io/cloudnative-pg/pgvector:0.8.1-18-trixie
+    - name: postgis
+      image:
+        reference: ghcr.io/cloudnative-pg/postgis-extension:3.6.1-18-trixie
+      ld_library_path:
+      - system
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: angus-app
+spec:
+  name: app
+  owner: app
+  cluster:
+    name: angus
+  extensions:
+  - name: vector
+    version: '0.8.1'
+  - name: postgis
+    version: '3.6.1'
+  - name: postgis_raster
+  - name: postgis_sfcgal
+  - name: fuzzystrmatch
+  - name: address_standardizer
+  - name: address_standardizer_data_us
+  - name: postgis_tiger_geocoder
+  - name: postgis_topology
