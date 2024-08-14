@@ -1,0 +1,24 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: cluster-example
+spec:
+  instances: 3
+
+  storage:
+    size: 1Gi
+
+  affinity:
+    nodeSelector:
+      node-role.kubernetes.io/postgres: ""
+
+    # Set the toleration for the taint
+    tolerations:
+    - key: node-role.kubernetes.io/postgres
+      operator: Exists
+      effect: NoSchedule
+
+    # Ensure that instances are scheduled and run on different nodes
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: required
