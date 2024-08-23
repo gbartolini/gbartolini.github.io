@@ -19,7 +19,7 @@ your future CloudNativePG explorations with a fully open source stack._
 
 <!--more-->
 
-_NOTE: this article has been updated on July 29th, 2024 with the most recent
+_NOTE: this article has been updated on August 23th, 2024 with the most recent
 versions of `kind` and `cloudnative-pg`._
 
 ---
@@ -51,7 +51,7 @@ kind version
 ```
 
 On my laptop, as of the time of the last update (June 10th, 2024),
-the output is `kind v0.23.0 go1.22.3 darwin/amd64`.
+the output is `kind v0.24.0 go1.22.6 darwin/amd64`.
 
 Now, proceed to establish your initial local Kubernetes cluster for
 CloudNativePG with:
@@ -64,7 +64,7 @@ Upon execution, you'll observe the following output:
 
 ```console
 Creating cluster "cnpg" ...
- ✓ Ensuring node image (kindest/node:v1.30.0) 🖼
+ ✓ Ensuring node image (kindest/node:v1.31.0) 🖼
  ✓ Preparing nodes 📦
  ✓ Writing configuration 📜
  ✓ Starting control-plane 🕹️
@@ -75,7 +75,7 @@ You can now use your cluster with:
 
 kubectl cluster-info --context kind-cnpg
 
-Unsure about the next steps? 😅 Check out https://kind.sigs.k8s.io/docs/user/quick-start/
+Have a nice day! 👋
 ```
 
 There you have it – the `cnpg` Kubernetes cluster is now operational within
@@ -103,12 +103,12 @@ installation of CloudNativePG.
 To deploy the latest stable version, refer to the
 [CloudNativePG documentation for instructions on installing the operator via Kubernetes manifests](https://cloudnative-pg.io/documentation/current/installation_upgrade/#directly-using-the-operator-manifest).
 
-For instance, to install version 1.23.3, the latest available at the time of
+For instance, to install version 1.24.0, the latest available at the time of
 writing, use the following command:
 
 ```sh
 kubectl apply --server-side -f \
-  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.23/releases/cnpg-1.23.3.yaml
+  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.24/releases/cnpg-1.24.0.yaml
 ```
 
 This command creates a `Deployment` resource named `cnpg-controller-manager`
@@ -187,7 +187,7 @@ On my laptop, the output is:
 
 ```console
 NAME              AGE   INSTANCES   READY   STATUS                     PRIMARY
-cluster-example   90s   3           3       Cluster in healthy state   cluster-example-1
+cluster-example   83s   3           3       Cluster in healthy state   cluster-example-1
 ```
 
 Congratulations! You now have your first PostgreSQL cluster up and running with
@@ -220,21 +220,21 @@ This command typically yields output similar to:
 Cluster Summary
 Name:                cluster-example
 Namespace:           default
-System ID:           7397470892841521179
-PostgreSQL Image:    ghcr.io/cloudnative-pg/postgresql:16.3
+System ID:           7406337893480935450
+PostgreSQL Image:    ghcr.io/cloudnative-pg/postgresql:16.4
 Primary instance:    cluster-example-1
-Primary start time:  2024-07-30 16:45:14 +0000 UTC (uptime 1m28s)
+Primary start time:  2024-08-23 14:13:44 +0000 UTC (uptime 3m7s)
 Status:              Cluster in healthy state
 Instances:           3
 Ready instances:     3
-Current Write LSN:   0/604DE38 (Timeline: 1 - WAL File: 000000010000000000000006)
+Current Write LSN:   0/6053758 (Timeline: 1 - WAL File: 000000010000000000000006)
 
 Certificates Status
 Certificate Name             Expiration Date                Days Left Until Expiration
 ----------------             ---------------                --------------------------
-cluster-example-ca           2024-10-28 16:39:36 +0000 UTC  90.00
-cluster-example-replication  2024-10-28 16:39:36 +0000 UTC  90.00
-cluster-example-server       2024-10-28 16:39:36 +0000 UTC  90.00
+cluster-example-ca           2024-11-21 14:08:16 +0000 UTC  89.99
+cluster-example-replication  2024-11-21 14:08:16 +0000 UTC  89.99
+cluster-example-server       2024-11-21 14:08:16 +0000 UTC  89.99
 
 Continuous Backup status
 Not configured
@@ -246,8 +246,8 @@ Streaming Replication status
 Replication Slots Enabled
 Name               Sent LSN   Write LSN  Flush LSN  Replay LSN  Write Lag  Flush Lag  Replay Lag  State      Sync State  Sync Priority  Replication Slot
 ----               --------   ---------  ---------  ----------  ---------  ---------  ----------  -----      ----------  -------------  ----------------
-cluster-example-2  0/604DE38  0/604DE38  0/604DE38  0/604DE38   00:00:00   00:00:00   00:00:00    streaming  async       0              active
-cluster-example-3  0/604DE38  0/604DE38  0/604DE38  0/604DE38   00:00:00   00:00:00   00:00:00    streaming  async       0              active
+cluster-example-2  0/6053758  0/6053758  0/6053758  0/6053758   00:00:00   00:00:00   00:00:00    streaming  async       0              active
+cluster-example-3  0/6053758  0/6053758  0/6053758  0/6053758   00:00:00   00:00:00   00:00:00    streaming  async       0              active
 
 Unmanaged Replication Slot Status
 No unmanaged replication slots found
@@ -267,9 +267,9 @@ cluster-example-primary  primary  1              1                1             
 Instances status
 Name               Database Size  Current LSN  Replication role  Status  QoS         Manager Version  Node
 ----               -------------  -----------  ----------------  ------  ---         ---------------  ----
-cluster-example-1  29 MB          0/604DE38    Primary           OK      BestEffort  1.23.3           cnpg-control-plane
-cluster-example-2  29 MB          0/604DE38    Standby (async)   OK      BestEffort  1.23.3           cnpg-control-plane
-cluster-example-3  29 MB          0/604DE38    Standby (async)   OK      BestEffort  1.23.3           cnpg-control-plane
+cluster-example-1  29 MB          0/6053758    Primary           OK      BestEffort  1.24.0           cnpg-control-plane
+cluster-example-2  29 MB          0/6053758    Standby (async)   OK      BestEffort  1.24.0           cnpg-control-plane
+cluster-example-3  29 MB          0/6053758    Standby (async)   OK      BestEffort  1.24.0           cnpg-control-plane
 ```
 
 This tool becomes indispensable as it provides essential insights into your
