@@ -30,13 +30,12 @@ Kubernetes._
 
 <!--more-->
 
-_NOTE: this article has been updated on July 30th, 2024 covering CloudNativePG
-1.24.0-rc1._
+_NOTE: this article has been updated on August 24th, 2024 covering CloudNativePG
+1.24.0._
 
 ---
 
-One of the most groundbreaking features in the upcoming CloudNativePG 1.24
-release, now available in [preview with version 1.24.0-rc1](https://cloudnative-pg.io/releases/cloudnative-pg-1-24.0-rc1-released/),
+One of the most groundbreaking features in [CloudNativePG 1.24](https://cloudnative-pg.io/releases/cloudnative-pg-1-24.0-released/)
 is the **ability to declaratively control the switchover of PostgreSQL clusters
 across different regions** — or more specifically, across different Kubernetes
 clusters. This feature allows for the demotion of a primary cluster and the
@@ -543,11 +542,8 @@ world!
 
 In my next blog article, I will continue this topic by providing a repeatable
 example on AWS EKS. In the meantime, you can test the feature using
-[CloudNativePG 1.24.0-rc1](https://cloudnative-pg.io/releases/cloudnative-pg-1-24.0-rc1-released/)
+[CloudNativePG 1.24](https://cloudnative-pg.io/documentation/1.24/replica_cluster/#distributed-topology)
 with [my playground for AWS EKS](https://github.com/gbartolini/postgres-kubernetes-playground/tree/main/aws-eks).
-Stay tuned for the next release of CloudNativePG, currently planned for the end
-of August, and don't miss the opportunity to
-[participate in the release candidate program for version 1.24.0](https://cloudnative-pg.io/documentation/preview/preview_version/)!
 
 ---
 
