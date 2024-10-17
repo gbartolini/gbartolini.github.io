@@ -18,6 +18,9 @@ capabilities in your own environment._
 
 <!--more-->
 
+_NOTE: this article has been updated on October 17th, 2024 with the most recent
+version of `cloudnative-pg`._
+
 ---
 
 [CloudNativePG 1.24](https://cloudnative-pg.io/releases/cloudnative-pg-1-24.0-released/)
@@ -93,7 +96,7 @@ There are multiple installation methods, but I prefer using manifests:
 
 ```sh
 kubectl apply --server-side -f \
-  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/releases/cnpg-1.24.0.yaml
+  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/releases/cnpg-1.24.1.yaml
 ```
 
 ## Creating the PostgreSQL Cluster
@@ -157,7 +160,7 @@ Name:                     cluster-example-rw-lb
 Namespace:                default
 Labels:                   cnpg.io/cluster=cluster-example
                           cnpg.io/isManaged=true
-Annotations:              cnpg.io/operatorVersion: 1.24.0
+Annotations:              cnpg.io/operatorVersion: 1.24.1
                           cnpg.io/updateStrategy: patch
 Selector:                 cnpg.io/cluster=cluster-example,cnpg.io/instanceRole=primary
 Type:                     LoadBalancer

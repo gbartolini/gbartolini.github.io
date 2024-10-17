@@ -19,8 +19,10 @@ your future CloudNativePG explorations with a fully open source stack._
 
 <!--more-->
 
-_NOTE: this article has been updated on August 23th, 2024 with the most recent
-versions of `kind` and `cloudnative-pg`._
+_NOTE: this article has been updated on October 17th, 2024 with the most recent
+versions of `kind` and `cloudnative-pg`. You might also be interested in
+the [CNPG Playground project]({{< relref "../20240920-cnpg-playground/index.md">}})
+that was launched in the meantime._
 
 ---
 
@@ -103,12 +105,12 @@ installation of CloudNativePG.
 To deploy the latest stable version, refer to the
 [CloudNativePG documentation for instructions on installing the operator via Kubernetes manifests](https://cloudnative-pg.io/documentation/current/installation_upgrade/#directly-using-the-operator-manifest).
 
-For instance, to install version 1.24.0, the latest available at the time of
+For instance, to install version 1.24.1, the latest available at the time of
 writing, use the following command:
 
 ```sh
 kubectl apply --server-side -f \
-  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.24/releases/cnpg-1.24.0.yaml
+  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.24/releases/cnpg-1.24.1.yaml
 ```
 
 This command creates a `Deployment` resource named `cnpg-controller-manager`
@@ -186,8 +188,8 @@ kubectl get cluster cluster-example
 On my laptop, the output is:
 
 ```console
-NAME              AGE   INSTANCES   READY   STATUS                     PRIMARY
-cluster-example   83s   3           3       Cluster in healthy state   cluster-example-1
+NAME              AGE     INSTANCES   READY   STATUS                     PRIMARY
+cluster-example   2m12s   3           3       Cluster in healthy state   cluster-example-1
 ```
 
 Congratulations! You now have your first PostgreSQL cluster up and running with
@@ -218,58 +220,37 @@ This command typically yields output similar to:
 
 ```console
 Cluster Summary
-Name:                cluster-example
-Namespace:           default
-System ID:           7406337893480935450
-PostgreSQL Image:    ghcr.io/cloudnative-pg/postgresql:16.4
+Name                 default/cluster-example
+System ID:           7426630836678873114
+PostgreSQL Image:    ghcr.io/cloudnative-pg/postgresql:17.0
 Primary instance:    cluster-example-1
-Primary start time:  2024-08-23 14:13:44 +0000 UTC (uptime 3m7s)
+Primary start time:  2024-10-17 06:40:44 +0000 UTC (uptime 2m27s)
 Status:              Cluster in healthy state
 Instances:           3
 Ready instances:     3
-Current Write LSN:   0/6053758 (Timeline: 1 - WAL File: 000000010000000000000006)
-
-Certificates Status
-Certificate Name             Expiration Date                Days Left Until Expiration
-----------------             ---------------                --------------------------
-cluster-example-ca           2024-11-21 14:08:16 +0000 UTC  89.99
-cluster-example-replication  2024-11-21 14:08:16 +0000 UTC  89.99
-cluster-example-server       2024-11-21 14:08:16 +0000 UTC  89.99
+Size:                126M
+Current Write LSN:   0/6050170 (Timeline: 1 - WAL File: 000000010000000000000006)
 
 Continuous Backup status
 Not configured
 
 Physical backups
-No running physical backups found
+Name  Phase  Started at  Total  Transferred  Progress  Tablespaces
+----  -----  ----------  -----  -----------  --------  -----------
 
 Streaming Replication status
 Replication Slots Enabled
 Name               Sent LSN   Write LSN  Flush LSN  Replay LSN  Write Lag  Flush Lag  Replay Lag  State      Sync State  Sync Priority  Replication Slot
 ----               --------   ---------  ---------  ----------  ---------  ---------  ----------  -----      ----------  -------------  ----------------
-cluster-example-2  0/6053758  0/6053758  0/6053758  0/6053758   00:00:00   00:00:00   00:00:00    streaming  async       0              active
-cluster-example-3  0/6053758  0/6053758  0/6053758  0/6053758   00:00:00   00:00:00   00:00:00    streaming  async       0              active
-
-Unmanaged Replication Slot Status
-No unmanaged replication slots found
-
-Managed roles status
-No roles managed
-
-Tablespaces status
-No managed tablespaces
-
-Pod Disruption Budgets status
-Name                     Role     Expected Pods  Current Healthy  Minimum Desired Healthy  Disruptions Allowed
-----                     ----     -------------  ---------------  -----------------------  -------------------
-cluster-example          replica  2              2                1                        1
-cluster-example-primary  primary  1              1                1                        0
+cluster-example-2  0/6050170  0/6050170  0/6050170  0/6050170   00:00:00   00:00:00   00:00:00    streaming  async       0              active
+cluster-example-3  0/6050170  0/6050170  0/6050170  0/6050170   00:00:00   00:00:00   00:00:00    streaming  async       0              active
 
 Instances status
-Name               Database Size  Current LSN  Replication role  Status  QoS         Manager Version  Node
-----               -------------  -----------  ----------------  ------  ---         ---------------  ----
-cluster-example-1  29 MB          0/6053758    Primary           OK      BestEffort  1.24.0           cnpg-control-plane
-cluster-example-2  29 MB          0/6053758    Standby (async)   OK      BestEffort  1.24.0           cnpg-control-plane
-cluster-example-3  29 MB          0/6053758    Standby (async)   OK      BestEffort  1.24.0           cnpg-control-plane
+Name               Current LSN  Replication role  Status  QoS         Manager Version  Node
+----               -----------  ----------------  ------  ---         ---------------  ----
+cluster-example-1  0/6050170    Primary           OK      BestEffort  1.24.1           cnpg-control-plane
+cluster-example-2  0/6050170    Standby (async)   OK      BestEffort  1.24.1           cnpg-control-plane
+cluster-example-3  0/6050170    Standby (async)   OK      BestEffort  1.24.1           cnpg-control-plane
 ```
 
 This tool becomes indispensable as it provides essential insights into your

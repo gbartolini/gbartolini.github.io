@@ -22,8 +22,11 @@ _... or thanks to Kubernetes! ;)_
 
 <!--more-->
 
+_NOTE: PostgreSQL 17 has been released since this article was published._
+<!--
 _NOTE: this article has been updated on August 14, 2024 with PostgreSQL Beta 3
 and the most recent versions of `kind` and `cloudnative-pg`._
+-->
 
 
 ---
