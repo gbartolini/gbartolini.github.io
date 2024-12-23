@@ -18,6 +18,9 @@ goal of highlighting the benefits of a repeatable and testable upgrade process._
 
 <!--more-->
 
+_NOTE: this article has been updated on December 23rd, 2024 with the most recent
+version of `cloudnative-pg`._
+
 ---
 
 Upgrading PostgreSQL to a major version has historically been one of the most
@@ -42,10 +45,7 @@ version 1.25 introduces a significant new feature:
 
 This article demonstrates how to perform an online major PostgreSQL upgrade on
 your laptop using `kind` (Kubernetes in Docker). I'll use the `Publication` and
-`Subscription` CRDs introduced in the **preview** version `1.25.0-rc1`.
-
-Please help us test this release candidate in a non-production environment by
-following the [instructions provided here](https://cloudnative-pg.io/documentation/preview/preview_version/).
+`Subscription` CRDs introduced in the version 1.25.
 
 ## Use Case: Online Major PostgreSQL Upgrade
 
@@ -62,18 +62,18 @@ the following requirements:
   before switching to the new database in production. This approach minimises
   downtime for the application, reducing it to near-zero levels.
 
-## Installing CloudNativePG Preview Version 1.25.0
+## Installing CloudNativePG
 
 Before proceeding, ensure you’ve completed the steps in
 ["CloudNativePG Recipe 1 - Setting Up Your Local Playground in Minutes"]({{< relref "../20240303-recipe-local-setup/index.md" >}}).
 For this example, you’ll need version 1.25 to use the declarative `Publication`
 and `Subscription` CRDs.
 
-To install version 1.25.0-rc1, run the following command:
+To install version 1.25.0, run the following command:
 
 ```sh
 kubectl apply --server-side -f \
-  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/releases/cnpg-1.25.0-rc1.yaml
+  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.25/releases/cnpg-1.25.0.yaml
 ```
 
 Make sure you also have the latest version of the `cnpg` plugin for `kubectl`,
