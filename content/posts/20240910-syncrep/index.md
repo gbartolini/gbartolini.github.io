@@ -19,6 +19,10 @@ durability and performance._
 
 <!--more-->
 
+_NOTE: This article was updated on December 26, 2024, to include a link to
+[CNPG Recipe #16]({{< relref "../20241226-data-durability/index.md" >}}), which
+covers the new `dataDurability` option introduced in CloudNativePG 1.25._
+
 ---
 
 CloudNativePG 1.24 introduces a highly customisable approach to managing
@@ -27,7 +31,9 @@ synchronous replication in PostgreSQL clusters through the new
 
 This new method, which is the focus of this article, will eventually replace
 the existing approach using `minSyncReplicas` and `maxSyncReplicas` for
-quorum-based synchronous replication.
+quorum-based synchronous replication starting from CloudNativePG 1.25,
+as explained in a more recent article:
+[CNPG Recipe #16 - Balancing Data Durability and Self-Healing with Synchronous Replication]({{< relref "../20241226-data-durability/index.md" >}}).
 
 ## Key improvements
 
