@@ -5,8 +5,8 @@ title = "Unleashing the Power of Postgres in Kubernetes"
 [params.author]
 name = "Gabriele Bartolini"
 image = "img/gb.jpg"
-headline = "VP of CloudNative at EDB | PostgreSQL contributor | DoK Ambassador | CloudNativePG Maintainer"
-bio = "VP of Cloud Native at EDB | PostgreSQL contributor | DoK Ambassador | CloudNativePG Maintainer | ex 2ndQuadrant (co-founder)"
+headline = "VP, Chief Architect of Kubernetes at EDB | PostgreSQL contributor | DoK Ambassador | CloudNativePG Maintainer"
+bio = "VP, Chief Architect of Kubernetes at EDB | PostgreSQL contributor | DoK Ambassador | CloudNativePG Maintainer | ex 2ndQuadrant (co-founder)"
 links = [
   { twitter = "https://twitter.com/_GBartolini_" },
   { linkedin = "https://www.linkedin.com/in/gbartolini/" },

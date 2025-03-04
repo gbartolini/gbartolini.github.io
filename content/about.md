@@ -13,8 +13,8 @@ the [PostgreSQL](https://postgresql.org) ecosystem since the early 2000s.
 
 Over the years, I've played a pivotal role in shaping lean and DevOps culture
 at 2ndQuadrant, and presently, I am steering the strategic direction of
-Kubernetes initiatives at [EDB](https://enterprisedb.com) as Vice President of
-Cloud Native.
+Kubernetes initiatives at [EDB](https://enterprisedb.com) as Vice President
+and Chief Architect of Kubernetes.
 
 As a co-founder of [CloudNativePG](https://cloudnative-pg.io) and
 [Barman](https://pgbarman.org) open-source projects, I am deeply committed to
