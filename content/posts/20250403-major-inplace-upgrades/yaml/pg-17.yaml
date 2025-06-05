@@ -3,7 +3,7 @@ kind: Cluster
 metadata:
   name: pg
 spec:
-  imageName: ghcr.io/cloudnative-pg/postgresql:17.4-minimal-bullseye
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.5-minimal-bullseye
   instances: 3
 
   storage:

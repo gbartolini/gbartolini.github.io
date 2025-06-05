@@ -21,16 +21,13 @@ and cover an upgrade of a 2.2TB database.
 
 ---
 
-CloudNativePG 1.26, expected at the end of this month, introduces one of the most highly anticipated features in
-the project's history: in-place major version upgrades of PostgreSQL using
-`pg_upgrade`.
+[CloudNativePG 1.26](https://cloudnative-pg.io/releases/cloudnative-pg-1-26.0-released/),
+introduces one of the most highly anticipated features in the project's
+history: in-place major version upgrades of PostgreSQL using `pg_upgrade`.
 
 Unlike minor upgrades, which primarily involve applying patches, major upgrades
 require handling changes to the internal storage format introduced by the new
 PostgreSQL version.
-
-This feature is now available for public testing through the preview
-[1.26.0-rc1 release](https://cloudnative-pg.io/releases/cloudnative-pg-1-26.0-rc1-released/).
 
 ## An Overview of the Existing Methods
 
@@ -65,17 +62,8 @@ operational challenges.
 
 ## Before You Start
 
-In-place major upgrades are currently available for preview and testing in
-[CloudNativePG 1.26.0-RC1](https://cloudnative-pg.io/documentation/preview/installation_upgrade/#directly-using-the-operator-manifest).
-You can test this feature on any Kubernetes cluster, including a local setup
+You can test in-place major upgrades on any Kubernetes cluster, including a local setup
 using `kind`, as explained in ["CloudNativePG Recipe 1 - Setting Up Your Local Playground in Minutes"]({{< relref "../20240303-recipe-local-setup/index.md" >}}).
-
-To deploy CloudNativePG 1.26.0-RC1, run:
-
-```sh
-kubectl apply --server-side -f \
-  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/releases/cnpg-1.26.0-rc1.yaml
-```
 
 ## How It Works
 
@@ -90,13 +78,13 @@ apply to the image catalog approach.
 Let’s assume you have a PostgreSQL cluster running with:
 
 ```yaml
-imageName: ghcr.io/cloudnative-pg/postgresql:13.20-minimal-bullseye
+imageName: ghcr.io/cloudnative-pg/postgresql:13.21-minimal-bullseye
 ```
 
 This means your cluster is using the latest available container image for
-PostgreSQL 13 (minor version 20). Since PostgreSQL 13 reaches end-of-life in
+PostgreSQL 13 (minor version 21). Since PostgreSQL 13 reaches end-of-life in
 November this year, you decide to upgrade to PostgreSQL 17 using the
-`ghcr.io/cloudnative-pg/postgresql:17.4-minimal-bullseye` image.
+`ghcr.io/cloudnative-pg/postgresql:17.5-minimal-bullseye` image.
 
 By updating the `imageName` field in the cluster configuration, CloudNativePG
 automatically initiates a major version upgrade.
@@ -167,7 +155,7 @@ kubectl cnpg psql pg -- -qAt -c 'SELECT version()'
 Returning something similar to this:
 
 ```console
-PostgreSQL 13.20 (Debian 13.20-1.pgdg110+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 10.2.1-6) 10.2.1 20210110, 64-bit
+PostgreSQL 13.21 (Debian 13.21-1.pgdg110+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 10.2.1-6) 10.2.1 20210110, 64-bit
 ```
 
 Now, let’s upgrade from PostgreSQL 13, which is nearing end-of-life, to the
@@ -190,7 +178,7 @@ again. Your database should now be running PostgreSQL 17.
 If you check again the version, you should now get a similar output:
 
 ```console
-PostgreSQL 17.4 (Debian 17.4-1.pgdg110+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 10.2.1-6) 10.2.1 20210110, 64-bit
+PostgreSQL 17.5 (Debian 17.5-1.pgdg110+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 10.2.1-6) 10.2.1 20210110, 64-bit
 ```
 
 If you type `kubectl get pods` now, you will see that pods and PVCs named
@@ -294,12 +282,6 @@ upgrades. As demonstrated in testing, upgrade times primarily depend on the
 number of tables rather than database size, making this approach efficient even
 for large datasets.
 
-The **success of this feature relies on real-world feedback**. We encourage you
-to test and validate it during the release candidate phase to ensure
-CloudNativePG 1.26.0 is robust and production-ready—especially when using
-extensions. Your insights will directly influence its future, so let us know
-what you think!
-
 ---
 
 Stay tuned for the upcoming recipes! For the latest updates, consider
@@ -310,7 +292,4 @@ If you found this article informative, feel free to share it within your
 network on social media using the provided links below. Your support is
 immensely appreciated!
 
-<!--
 _Cover Picture: [“Indian Elephant Photo - Kalyan Varma“](https://animalia.bio/indian-elephant)._
--->
-
