@@ -24,6 +24,20 @@ brew install hugo
 
 ## How to start the development server
 
+Using Docker:
+
+```sh
+docker run --rm \
+  --name mysite \
+  -p 8080:8080 \
+  -v ${PWD}:/src \
+  -v ${HOME}/hugo_cache:/tmp/hugo_cache \
+  hugomods/hugo:exts-non-root-0.145.0 \
+  server -p 8080 --buildDrafts --buildFuture
+```
+
+Or with Hugo:
+
 ```
 hugo serve --buildDrafts --buildFuture
 ```
