@@ -1,0 +1,26 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: freddie
+spec:
+  instances: 3
+
+  storage:
+    size: 1Gi
+
+  postgresql:
+    synchronous:
+      method: any
+      number: 1
+
+  probes:
+    startup:
+      type: streaming
+      maximumLag: 32Mi
+      periodSeconds: 5
+      failureThreshold: 120
+    readiness:
+      type: streaming
+      maximumLag: 0
+      periodSeconds: 10
+      failureThreshold: 6

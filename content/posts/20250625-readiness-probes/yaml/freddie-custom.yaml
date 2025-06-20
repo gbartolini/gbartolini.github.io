@@ -1,0 +1,14 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: freddie
+spec:
+  instances: 3
+
+  storage:
+    size: 1Gi
+
+  probes:
+    readiness:
+      periodSeconds: 10
+      failureThreshold: 6
