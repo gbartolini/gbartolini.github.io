@@ -93,7 +93,7 @@ release windows:
 - **December 23**: [1.25.0 (minor release)](https://cloudnative-pg.io/releases/cloudnative-pg-1-25.0-released/), 1.24.2, and 1.23.6
 
 With the release of version 1.23, we made a significant strategic decision to
-streamline our [support policy](https://cloudnative-pg.io/documentation/current/supported_releases/#support-policy).
+streamline our [support policy](https://cloudnative-pg.io/docs/1.28/supported_releases/#support-policy).
 
 As a community, we now only support the latest minor version of CloudNativePG
 and extend support for the second-last minor version for an additional three
@@ -104,7 +104,7 @@ combinations in our continuous delivery pipelines.
 Another pivotal improvement was the introduction of release candidates,
 prompted by a retrospective analysis of the misstep in version 1.23.0 — which
 required a swift 1.23.1 patch just five days later. The new release candidate
-process has allowed us to provide our user base with [preview versions](https://cloudnative-pg.io/documentation/current/preview_version/)
+process has allowed us to provide our user base with [preview versions](https://cloudnative-pg.io/docs/1.28/preview_version/)
 of upcoming releases, such as 1.24 and 1.25, fostering better feedback and
 stability.
 

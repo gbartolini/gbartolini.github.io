@@ -52,8 +52,8 @@ Start by defining your business goals: Recovery Point Objective (RPO), Recovery
 Time Objective (RTO), and the number of transactions per second (TPS) that you
 require. Then benchmark PostgreSQL, and only if the results are not good enough
 proceed with an active/active distributed solution. Benchmark the
-[storage with `fio`](https://cloudnative-pg.io/documentation/current/benchmarking/#fio)  and
-the [database using `pgbench`](https://cloudnative-pg.io/documentation/current/benchmarking/#pgbench)
+[storage with `fio`](https://cloudnative-pg.io/docs/1.28/benchmarking/#fio)  and
+the [database using `pgbench`](https://cloudnative-pg.io/docs/1.28/benchmarking/#pgbench)
 (either with the built-in OLTP-like workload or by writing your custom
 queries).
 
@@ -67,7 +67,7 @@ directly instead of relying on a `Statefulset` resource like most operators
 that work with data (another one that followed our approach is
 [Strimzi for Kafka](https://github.com/strimzi/strimzi-kafka-operator/blob/main/CHANGELOG.md#0350)).
 If you are interested, we explain the reasons behind this choice on the
-[“Pod Controller” page from the CloudNativePG documentation](https://cloudnative-pg.io/documentation/current/controller/).
+[“Pod Controller” page from the CloudNativePG documentation](https://cloudnative-pg.io/docs/1.28/controller/).
 
 Every CloudNativePG instance necessitates a mandatory volume for the PostgreSQL
 data, aka `PGDATA`, meticulously configured within the `storage` stanza.
@@ -123,7 +123,7 @@ Internally, CloudNativePG manage the symbolic link to ensure that the
 `pg_wal` directory seamlessly points to the appropriate directory within the
 WAL volume. In the event of adding a volume for WAL files later on,
 CloudNativePG orchestrates a smooth
-[rolling update](https://cloudnative-pg.io/documentation/current/rolling_update/#automated-updates-unsupervised)
+[rolling update](https://cloudnative-pg.io/docs/1.28/rolling_update/#automated-updates-unsupervised)
 process. This involves halting replicas one at a time, transferring WAL files
 to the new volume, and updating symbolic links. The process is further refined
 by the `primaryUpdateMethod` option, which dictates whether the primary

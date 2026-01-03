@@ -124,7 +124,7 @@ raised in CloudNativePG regarding the risk of a split-brain scenario during a
 network partition. This sparked a productive
 [discussion](https://github.com/cloudnative-pg/cloudnative-pg/issues/7407)
 within the community, which I recommend reading.
-It ultimately led to a [new default behaviour](https://cloudnative-pg.io/documentation/current/instance_manager/#primary-isolation)
+It ultimately led to a [new default behaviour](https://cloudnative-pg.io/docs/1.28/instance_manager/#primary-isolation)
 introduced in CloudNativePG 1.27, after debuting as an
 [experimental feature in 1.26](https://cloudnative-pg.io/documentation/1.26/instance_manager/#primary-isolation-alpha).
 
@@ -180,7 +180,7 @@ Key practical takeaways:
 - **Fully integrated with Kubernetes probes:** Achieves robust behaviour
   without introducing external dependencies.
 - **Foundation for quorum-based failover:** Enables the experimental
-  [quorum-based failover](https://cloudnative-pg.io/documentation/current/failover/#failover-quorum-quorum-based-failover)
+  [quorum-based failover](https://cloudnative-pg.io/docs/1.28/failover/#failover-quorum-quorum-based-failover)
   feature in 1.27, which will be stable in 1.28, offering safer synchronous
   replication failover.
 

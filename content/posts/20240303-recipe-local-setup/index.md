@@ -19,7 +19,7 @@ your future CloudNativePG explorations with a fully open source stack._
 
 <!--more-->
 
-_NOTE: this article has been updated on June 5th, 2025 with the most recent
+_NOTE: this article has been updated on January 4th, 2026 with the most recent
 versions of `kind` and `cloudnative-pg`. You might also be interested in
 the [CNPG Playground project]({{< relref "../20240920-cnpg-playground/index.md">}})
 that was launched in the meantime._
@@ -53,7 +53,7 @@ kind version
 ```
 
 On my laptop, as of the time of the last update, the output is
-`kind v0.29.0 go1.24.3 darwin/amd64`.
+`kind v0.31.0 go1.25.5 darwin/arm64`.
 
 Now, proceed to establish your initial local Kubernetes cluster for
 CloudNativePG with:
@@ -66,7 +66,7 @@ Upon execution, you'll observe the following output:
 
 ```console
 Creating cluster "cnpg" ...
- ✓ Ensuring node image (kindest/node:v1.33.1) 🖼
+ ✓ Ensuring node image (kindest/node:v1.35.0) 🖼
  ✓ Preparing nodes 📦
  ✓ Writing configuration 📜
  ✓ Starting control-plane 🕹️
@@ -103,14 +103,14 @@ Now that our local Kubernetes playground is set up, let's explore the
 installation of CloudNativePG.
 
 To deploy the latest stable version, refer to the
-[CloudNativePG documentation for instructions on installing the operator via Kubernetes manifests](https://cloudnative-pg.io/documentation/current/installation_upgrade/#directly-using-the-operator-manifest).
+[CloudNativePG documentation for instructions on installing the operator via Kubernetes manifests](https://cloudnative-pg.io/docs/1.28/installation_upgrade/#directly-using-the-operator-manifest).
 
-For instance, to install version 1.26.1, the latest available at the time of
+For instance, to install version 1.28.0, the latest available at the time of
 writing, use the following command:
 
 ```sh
 kubectl apply --server-side -f \
-  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.26/releases/cnpg-1.26.1.yaml
+  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.28/releases/cnpg-1.28.0.yaml
 ```
 
 This command creates a `Deployment` resource named `cnpg-controller-manager`
@@ -141,13 +141,13 @@ Feel free to explore different versions or dive into the latest developments!
 With CloudNativePG successfully installed in your local cluster, creating your
 initial 3-instance PostgreSQL cluster is a breeze.
 
-Let's utilize the basic
-[cluster-example](https://cloudnative-pg.io/documentation/current/samples/cluster-example.yaml)
+Let's use the basic
+[cluster-example](https://cloudnative-pg.io/docs/assets/files/cluster-example-0a961e59ba2e2313c983c3386be1d7e7.yaml)
 file provided by CloudNativePG for evaluation purposes. The YAML content is
 concise, under 10 lines, and adheres to the *convention over configuration*
 paradigm embraced by CloudNativePG. This default configuration should
 seamlessly work for most use cases, and all available options are detailed in
-the [API reference](https://cloudnative-pg.io/documentation/current/cloudnative-pg.v1/),
+the [API reference](https://cloudnative-pg.io/docs/1.28/cloudnative-pg.v1/),
 giving you the flexibility to override any of them.
 
 Here's a snippet of the YAML file:
@@ -169,7 +169,7 @@ using the `kubectl apply` command:
 
 ```sh
 kubectl apply -f \
-  https://cloudnative-pg.io/documentation/current/samples/cluster-example.yaml
+  https://cloudnative-pg.io/docs/assets/files/cluster-example-0a961e59ba2e2313c983c3386be1d7e7.yaml
 ```
 
 Monitor the progress with `kubectl get pods -w`.
@@ -204,7 +204,7 @@ deployments using the concise `kubectl cnpg` command.
 
 Installation of the plugin offers flexibility through various methods,
 including package installations outlined in the
-[CloudNativePG documentation](https://cloudnative-pg.io/documentation/current/kubectl-plugin/).
+[CloudNativePG documentation](https://cloudnative-pg.io/docs/1.28/kubectl-plugin/).
 
 We strongly endorse the `cnpg` plugin, with one notable advantage being the
 inclusion of the `cnpg status` command.
@@ -220,33 +220,32 @@ This command typically yields output similar to:
 
 ```console
 Cluster Summary
-Name                 default/cluster-example
-System ID:           7512473913904742428
-PostgreSQL Image:    ghcr.io/cloudnative-pg/postgresql:13
-Primary instance:    cluster-example-1
-Primary start time:  2025-06-05 14:35:42 +0000 UTC (uptime 1m27s)
-Status:              Cluster in healthy state
-Instances:           3
-Ready instances:     3
-Size:                112M
-Current Write LSN:   0/5000060 (Timeline: 1 - WAL File: 000000010000000000000005)
+Name                     default/cluster-example
+System ID:               7591231340975534109
+PostgreSQL Image:        ghcr.io/cloudnative-pg/postgresql:18.1-system-trixie
+Primary instance:        cluster-example-1
+Primary promotion time:  2026-01-03 20:14:44 +0000 UTC (1m14s)
+Status:                  Cluster in healthy state
+Instances:               3
+Ready instances:         3
+Size:                    128M
+Current Write LSN:       0/6000060 (Timeline: 1 - WAL File: 000000010000000000000006)
 
-Continuous Backup status
-Not configured
+Continuous Backup not configured
 
 Streaming Replication status
 Replication Slots Enabled
 Name               Sent LSN   Write LSN  Flush LSN  Replay LSN  Write Lag  Flush Lag  Replay Lag  State      Sync State  Sync Priority  Replication Slot
 ----               --------   ---------  ---------  ----------  ---------  ---------  ----------  -----      ----------  -------------  ----------------
-cluster-example-2  0/5000060  0/5000060  0/5000060  0/5000060   00:00:00   00:00:00   00:00:00    streaming  async       0              active
-cluster-example-3  0/5000060  0/5000060  0/5000060  0/5000060   00:00:00   00:00:00   00:00:00    streaming  async       0              active
+cluster-example-2  0/6000060  0/6000060  0/6000060  0/6000060   00:00:00   00:00:00   00:00:00    streaming  async       0              active
+cluster-example-3  0/6000060  0/6000060  0/6000060  0/6000060   00:00:00   00:00:00   00:00:00    streaming  async       0              active
 
 Instances status
 Name               Current LSN  Replication role  Status  QoS         Manager Version  Node
 ----               -----------  ----------------  ------  ---         ---------------  ----
-cluster-example-1  0/5000060    Primary           OK      BestEffort  1.26.1           cnpg-control-plane
-cluster-example-2  0/5000060    Standby (async)   OK      BestEffort  1.26.1           cnpg-control-plane
-cluster-example-3  0/5000060    Standby (async)   OK      BestEffort  1.26.1           cnpg-control-plane
+cluster-example-1  0/6000060    Primary           OK      BestEffort  1.28.0           cnpg-control-plane
+cluster-example-2  0/6000060    Standby (async)   OK      BestEffort  1.28.0           cnpg-control-plane
+cluster-example-3  0/6000060    Standby (async)   OK      BestEffort  1.28.0           cnpg-control-plane
 ```
 
 This tool becomes indispensable as it provides essential insights into your

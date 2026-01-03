@@ -31,7 +31,7 @@ playing in my ears—I’m just a `vi`, `psql`, and `kubectl` person!).
 If you're familiar with CloudNativePG, you know that the main CLI isn’t a
 standalone application (like other operators might have) but an extension of
 the standard `kubectl` interface provided by the
-[`cnpg` plugin](https://cloudnative-pg.io/documentation/current/kubectl-plugin/).
+[`cnpg` plugin](https://cloudnative-pg.io/docs/1.28/kubectl-plugin/).
 This plugin is essential for every CloudNativePG installation, significantly
 improving user experience when managing PostgreSQL databases in Kubernetes. It
 offers handy commands like `status`, `promote`, `destroy`, `pgbench`,

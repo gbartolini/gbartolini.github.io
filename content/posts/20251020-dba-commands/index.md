@@ -43,7 +43,7 @@ day-to-day operations: verifying the cluster's health, connecting for ad-hoc
 queries, and especially troubleshooting issues.
 
 A quick but important note: all the commands we'll discuss require the correct
-[RBAC (Role-Based Access Control)](https://cloudnative-pg.io/documentation/current/security/#role-based-access-control-rbac)
+[RBAC (Role-Based Access Control)](https://cloudnative-pg.io/docs/1.28/security/#role-based-access-control-rbac)
 permissions in your Kubernetes environment.
 Before you start, work with your infrastructure team to ensure you have the
 necessary access. Beware that some of them might only work in your learning
@@ -66,7 +66,7 @@ With that foundation set, let's dive into the live commands.
 All the commands we'll see are based on `kubectl`, the command-line tool for
 Kubernetes. Think of it as your new `psql`, `ssh`, and `systemctl` all rolled
 into one. We'll use `kubectl` to interact with standard Kubernetes resources
-and, more importantly, with the [CloudNativePG plugin](https://cloudnative-pg.io/documentation/current/kubectl-plugin/).
+and, more importantly, with the [CloudNativePG plugin](https://cloudnative-pg.io/docs/1.28/kubectl-plugin/).
 This plugin, invoked as `kubectl cnpg`, is the official command-line interface
 for CloudNativePG and provides all our DBA-specific commands.
 As maintainers, we recommend every CloudNativePG user to install it.
@@ -172,7 +172,7 @@ Kubernetes resources. As a DBA, you need to know what these are
 
 They are all tied together using **label selectors** (you can find a complete
 reference for all labels and annotations used by CloudNativePG in the
-[official documentation](https://cloudnative-pg.io/documentation/current/labels_annotations/)).
+[official documentation](https://cloudnative-pg.io/docs/1.28/labels_annotations/)).
 
 - **Pods:** these are the running Postgres instances.
   ```bash

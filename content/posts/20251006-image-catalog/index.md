@@ -86,7 +86,7 @@ This new, transparent, and secure supply chain provides several key guarantees:
 
 ## Image Catalogs, Perfected: A Reliable New Distribution Pipeline
 
-[**Image Catalogs**](https://cloudnative-pg.io/documentation/current/image_catalog/)
+[**Image Catalogs**](https://cloudnative-pg.io/docs/1.28/image_catalog/)
 have been a powerful feature in CloudNativePG for over two years, allowing you
 to decouple your cluster configuration from specific image tags. However, the
 responsibility of creating and maintaining the catalog manifests often fell
@@ -257,12 +257,12 @@ I encourage you to adopt this new, simplified workflow for image catalogs
 today. You can get started by applying them from our
 [`artifacts` repository](https://github.com/cloudnative-pg/artifacts/tree/main/image-catalogs).
 
-For a deeper dive, check out the official documentation on [image catalogs](https://cloudnative-pg.io/documentation/current/image_catalog/)
-and [spread upgrades](https://cloudnative-pg.io/documentation/current/installation_upgrade/#spread-upgrades).
+For a deeper dive, check out the official documentation on [image catalogs](https://cloudnative-pg.io/docs/1.28/image_catalog/)
+and [spread upgrades](https://cloudnative-pg.io/docs/1.28/installation_upgrade/#spread-upgrades).
 
 To see where this is headed, I invite you to read my previous article on
 ["The Immutable Future of PostgreSQL Extensions"]({{< relref "../20250303-volume-source-extension-control-path/index.md" >}})
-and the official docs on [extension image volumes](https://cloudnative-pg.io/documentation/current/imagevolume_extensions/).
+and the official docs on [extension image volumes](https://cloudnative-pg.io/docs/1.28/imagevolume_extensions/).
 
 ---
 

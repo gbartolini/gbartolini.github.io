@@ -212,7 +212,7 @@ _“Bringing Postgres to Kubernetes.”_
 
 CloudNativePG is indeed more than an operator; it is a database management
 platform that extends the Kubernetes controller. It teaches Kubernetes to
-[directly understand and manage a PostgreSQL cluster](https://cloudnative-pg.io/documentation/current/controller/),
+[directly understand and manage a PostgreSQL cluster](https://cloudnative-pg.io/docs/1.28/controller/),
 rather than relying on external tools (such as repmgr, which I contributed to
 in the early stages, or Patroni) for critical operations like primary election,
 async/sync replication, automated failover, switchover, configuration
@@ -372,7 +372,7 @@ and the broader Cloud Native movement:
 - [Local Persistent Volumes and PostgreSQL usage in Kubernetes](https://www.2ndquadrant.com/en/blog/local-persistent-volumes-and-postgresql-usage-in-kubernetes/) (June 2020)
 - [Why EDB chose immutable application containers](https://www.enterprisedb.com/blog/why-edb-chose-immutable-application-containers) (February 2021)
 - [Introducing CloudNativePG: A New Open Source Kubernetes Operator for Postgres](https://www.enterprisedb.com/blog/introducing-cloudnativepg-new-open-source-kubernetes-operator-postgres) (May 2022)
-- ["Custom Pod Controller" page from CloudNativePG documentation](https://cloudnative-pg.io/documentation/current/controller/) (May 2022)
+- ["Custom Pod Controller" page from CloudNativePG documentation](https://cloudnative-pg.io/docs/1.28/controller/) (May 2022)
 - ["Recommended architectures for PostgreSQL in Kubernetes"](https://www.cncf.io/blog/2023/09/29/recommended-architectures-for-postgresql-in-kubernetes/) (Sept 2023)
 - [Maximising Microservice Databases with Kubernetes, Postgres, and CloudNativePG](https://www.gabrielebartolini.it/articles/2024/02/maximizing-microservice-databases-with-kubernetes-postgres-and-cloudnativepg/) (February 2024)
 - [CloudNativePG Recipe #5 - How to migrate your PostgreSQL database in Kubernetes with ~0 downtime from anywhere](https://www.gabrielebartolini.it/articles/2024/03/cloudnativepg-recipe-5-how-to-migrate-your-postgresql-database-in-kubernetes-with-~0-downtime-from-anywhere/) (March 2024)

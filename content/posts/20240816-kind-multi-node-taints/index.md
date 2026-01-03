@@ -159,7 +159,7 @@ affinity:
 
 ## Let's Get Started
 
-First, [install the CloudNativePG operator](https://cloudnative-pg.io/documentation/current/installation_upgrade/#installation-on-kubernetes).
+First, [install the CloudNativePG operator](https://cloudnative-pg.io/docs/1.28/installation_upgrade/#installation-on-kubernetes).
 
 In this example, I'll use the latest development build of CloudNativePG for
 testing:

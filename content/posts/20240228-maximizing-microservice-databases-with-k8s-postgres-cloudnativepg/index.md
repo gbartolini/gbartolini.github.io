@@ -191,7 +191,7 @@ development.
 As both a co-founder and maintainer of the CloudNativePG project, and a
 longtime enthusiast of both PostgreSQL and Kubernetes, I wholeheartedly
 advocate for this operator. Technically classified as a
-[level 5 Kubernetes Operator](https://cloudnative-pg.io/documentation/current/operator_capability_levels/),
+[level 5 Kubernetes Operator](https://cloudnative-pg.io/docs/1.28/operator_capability_levels/),
 CloudNativePG excels in managing PostgreSQL clusters, seamlessly handling day 0
 through day 2 operations, and is production-ready.
 
@@ -206,12 +206,12 @@ On the technical front, CloudNativePG distinguishes itself by being exclusively
 designed for Kubernetes. It seamlessly extends the Kubernetes controller,
 introducing a custom resource called `Cluster` responsible for managing the
 Postgres cluster's status. This resource relies on a component called the
-[*instance manager*](https://cloudnative-pg.io/documentation/current/instance_manager/)
+[*instance manager*](https://cloudnative-pg.io/docs/1.28/instance_manager/)
 to exert precise control over the underlying PostgreSQL instances.
 
 A notable aspect is the inclusion of failover management within CloudNativePG,
 eliminating the need for external tools like Patroni when providing High Availability.
-The decision to bypass statefulsets and [directly manage PVCs](https://cloudnative-pg.io/documentation/current/controller/)
+The decision to bypass statefulsets and [directly manage PVCs](https://cloudnative-pg.io/docs/1.28/controller/)
 allows for finer control over the Postgres cluster.
 
 CloudNativePG adopts a fully declarative approach, leveraging the Kubernetes
@@ -221,21 +221,21 @@ services, mutual TLS via secrets, affinity control, persistent volumes,
 and more.
 
 Out of the box, CloudNativePG offers observability through endpoints for native
-[Prometheus exporters](https://cloudnative-pg.io/documentation/current/monitoring/),
-as well as [direct log stream in JSON format to stdout](https://cloudnative-pg.io/documentation/current/logging/).
+[Prometheus exporters](https://cloudnative-pg.io/docs/1.28/monitoring/),
+as well as [direct log stream in JSON format to stdout](https://cloudnative-pg.io/docs/1.28/logging/).
 
-Key features encompass [continuous backup](https://cloudnative-pg.io/documentation/current/backup/)
-and [point-in-time recovery](https://cloudnative-pg.io/documentation/current/recovery/),
-[rolling updates](https://cloudnative-pg.io/documentation/current/rolling_update/),
-[fencing](https://cloudnative-pg.io/documentation/current/fencing/),
-[hibernation](https://cloudnative-pg.io/documentation/current/declarative_hibernation/),
-along with the ability to replicate across Kubernetes clusters, also known as [replica clusters](https://cloudnative-pg.io/documentation/current/replica_cluster/).
+Key features encompass [continuous backup](https://cloudnative-pg.io/docs/1.28/backup/)
+and [point-in-time recovery](https://cloudnative-pg.io/docs/1.28/recovery/),
+[rolling updates](https://cloudnative-pg.io/docs/1.28/rolling_update/),
+[fencing](https://cloudnative-pg.io/docs/1.28/fencing/),
+[hibernation](https://cloudnative-pg.io/docs/1.28/declarative_hibernation/),
+along with the ability to replicate across Kubernetes clusters, also known as [replica clusters](https://cloudnative-pg.io/docs/1.28/replica_cluster/).
 
-CloudNativePG features a powerful [`kubectl` plugin known as `cnpg`](https://cloudnative-pg.io/documentation/current/kubectl-plugin/),
+CloudNativePG features a powerful [`kubectl` plugin known as `cnpg`](https://cloudnative-pg.io/docs/1.28/kubectl-plugin/),
 serving as the official command-line interface (CLI) for the product. It is
 compatible with any supported Kubernetes distribution and can be effortlessly
 tested on your laptop using `kind` (Kubernetes in Docker), as outlined in the
-[quickstart](https://cloudnative-pg.io/documentation/current/quickstart/).
+[quickstart](https://cloudnative-pg.io/docs/1.28/quickstart/).
 
 ## The microservice database opportunity
 

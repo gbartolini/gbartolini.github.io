@@ -53,7 +53,7 @@ cnpg-default-monitoring   1      14h
 
 Focus on the `cnpg-default-monitoring` ConfigMap, which CloudNativePG installs by
 default. This ConfigMap contains built-in metrics for the [embedded Prometheus
-exporter](https://cloudnative-pg.io/documentation/current/monitoring/#user-defined-metrics).
+exporter](https://cloudnative-pg.io/docs/1.28/monitoring/#user-defined-metrics).
 Inspect its content using:
 
 ```sh
@@ -85,7 +85,7 @@ Pay attention to the `monitoring` section in the returned JSON object:
 
 For more details on the observability framework available in CloudNativePG,
 including creating custom metrics, refer to the
-["Monitoring"](https://cloudnative-pg.io/documentation/current/monitoring/)
+["Monitoring"](https://cloudnative-pg.io/docs/1.28/monitoring/)
 section in the documentation.
 
 ## Default Secrets
@@ -426,7 +426,7 @@ single database within a cluster. Rather than consolidating multiple databases
 within a single Postgres cluster, the recommendation is to create distinct
 clusters, each dedicated to a [microservice database]({{< relref "../20240228-maximizing-microservice-databases-with-k8s-postgres-cloudnativepg/index.md">}}).
 Detailed insights into this strategy are available in our
-[FAQ section](https://cloudnative-pg.io/documentation/current/faq/).
+[FAQ section](https://cloudnative-pg.io/docs/1.28/faq/).
 
 In this framework, the specifics of the database, such as its name and the
 owning user (`app`), become less significant. The focal point shifts to the
