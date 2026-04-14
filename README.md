@@ -32,7 +32,7 @@ docker run --rm \
   -p 8080:8080 \
   -v ${PWD}:/src \
   -v ${HOME}/hugo_cache:/tmp/hugo_cache \
-  hugomods/hugo:exts-non-root-0.145.0 \
+  hugomods/hugo:debian-reg-dart-sass-go-git-non-root-0.160.1 \
   server -p 8080 --buildDrafts --buildFuture
 ```
 
