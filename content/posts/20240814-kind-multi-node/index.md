@@ -215,7 +215,7 @@ CloudNativePG and ensure it runs on the designated `postgres` nodes.
 This is a straightforward task in Kubernetes, thanks to [node selectors](https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes/).
 CloudNativePG leverages this capability through the
 `.spec.affinity.nodeSelector` field, as described in the
-[“Scheduling” documentation](https://cloudnative-pg.io/docs/1.28/scheduling/#node-selection-through-nodeselector),
+[“Scheduling” documentation](https://cloudnative-pg.io/docs/current/scheduling/#node-selection-through-nodeselector),
 illustrated by the following example:
 
 ```yaml
@@ -227,7 +227,7 @@ illustrated by the following example:
 
 ## Let's Get Started
 
-First, ensure [the operator is installed](https://cloudnative-pg.io/docs/1.28/installation_upgrade/#installation-on-kubernetes).
+First, ensure [the operator is installed](https://cloudnative-pg.io/docs/current/installation_upgrade/#installation-on-kubernetes).
 Feel free to install the version of your choice. For production environments,
 it’s recommended to use the latest stable minor release.
 

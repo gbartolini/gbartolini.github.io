@@ -110,7 +110,7 @@ In some scenarios, data replication is required beyond a single Kubernetes
 cluster. This is especially relevant in on-premise deployments with two
 separate Kubernetes clusters in close proximity.
 
-For instance, consider a [CloudNativePG replica cluster](https://cloudnative-pg.io/docs/1.28/replica_cluster/)
+For instance, consider a [CloudNativePG replica cluster](https://cloudnative-pg.io/docs/current/replica_cluster/)
 named `brian` in a second Kubernetes cluster, replicating from a primary
 cluster called `angus`. We want to ensure the designated primary in the `brian`
 cluster, which replicates directly from `angus-rw`, participates in synchronous

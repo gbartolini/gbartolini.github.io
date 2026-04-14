@@ -68,7 +68,7 @@ kubectl cnpg status pgvector
 By default, CloudNativePG creates a database and a user both named `app` for
 applications (see ["CNPG Recipe 2 -  Inspecting Default Resources in a CloudNativePG Cluster"]({{< relref "../20240307-recipe-inspection/index.md" >}})
 for more information).  CloudNativePG also supports a powerful feature: you can
-declaratively [define a `Database` resource](https://cloudnative-pg.io/docs/1.28/declarative_database_management/)
+declaratively [define a `Database` resource](https://cloudnative-pg.io/docs/current/declarative_database_management/)
 and specify extensions to be installed in it.
 
 Since `pgvector` is already bundled in the default

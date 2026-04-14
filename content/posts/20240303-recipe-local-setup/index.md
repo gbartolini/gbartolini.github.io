@@ -103,7 +103,7 @@ Now that our local Kubernetes playground is set up, let's explore the
 installation of CloudNativePG.
 
 To deploy the latest stable version, refer to the
-[CloudNativePG documentation for instructions on installing the operator via Kubernetes manifests](https://cloudnative-pg.io/docs/1.28/installation_upgrade/#directly-using-the-operator-manifest).
+[CloudNativePG documentation for instructions on installing the operator via Kubernetes manifests](https://cloudnative-pg.io/docs/current/installation_upgrade/#directly-using-the-operator-manifest).
 
 For instance, to install version 1.28.0, the latest available at the time of
 writing, use the following command:
@@ -147,7 +147,7 @@ file provided by CloudNativePG for evaluation purposes. The YAML content is
 concise, under 10 lines, and adheres to the *convention over configuration*
 paradigm embraced by CloudNativePG. This default configuration should
 seamlessly work for most use cases, and all available options are detailed in
-the [API reference](https://cloudnative-pg.io/docs/1.28/cloudnative-pg.v1/),
+the [API reference](https://cloudnative-pg.io/docs/current/cloudnative-pg.v1/),
 giving you the flexibility to override any of them.
 
 Here's a snippet of the YAML file:
@@ -204,7 +204,7 @@ deployments using the concise `kubectl cnpg` command.
 
 Installation of the plugin offers flexibility through various methods,
 including package installations outlined in the
-[CloudNativePG documentation](https://cloudnative-pg.io/docs/1.28/kubectl-plugin/).
+[CloudNativePG documentation](https://cloudnative-pg.io/docs/current/kubectl-plugin/).
 
 We strongly endorse the `cnpg` plugin, with one notable advantage being the
 inclusion of the `cnpg status` command.

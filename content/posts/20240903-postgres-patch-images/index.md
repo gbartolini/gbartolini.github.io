@@ -64,7 +64,7 @@ Why is this important? At CloudNativePG, we maintain a Git repository called
 [postgres-trunk-containers](https://github.com/cloudnative-pg/postgres-trunk-containers),
 which automatically builds a daily snapshot container image of the latest
 PostgreSQL trunk (i.e., the `master` branch) and uses it to run our
-comprehensive [end-to-end (E2E) test suite](https://cloudnative-pg.io/docs/1.28/e2e/).
+comprehensive [end-to-end (E2E) test suite](https://cloudnative-pg.io/docs/current/e2e/).
 To clarify, the code currently on the trunk will become part of PostgreSQL 18
 when it is released next year. This proactive approach allows us to quickly
 identify and address breaking changes, regressions, or other issues, ensuring
@@ -209,7 +209,7 @@ main codebase.
 By automating the creation and testing of PostgreSQL images, we aim to free
 developers from the complexities of manual testing, allowing them to focus more
 on creativity and innovation. Each patch will benefit from approximately
-[200 automated tests](https://cloudnative-pg.io/docs/1.28/e2e/)
+[200 automated tests](https://cloudnative-pg.io/docs/current/e2e/)
 running on a 3-instance PostgreSQL cluster within Kubernetes
 rather than on a single instance. These tests cover critical areas such as
 backup, recovery, automated failover, switchover, monitoring, logging,

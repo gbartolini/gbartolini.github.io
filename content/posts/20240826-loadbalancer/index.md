@@ -91,7 +91,7 @@ node, as explained in Recipe #1:
 kind create cluster --name cnpg
 ```
 
-Once your cluster is up and running, [install the CloudNativePG operator](https://cloudnative-pg.io/docs/1.28/installation_upgrade/).
+Once your cluster is up and running, [install the CloudNativePG operator](https://cloudnative-pg.io/docs/current/installation_upgrade/).
 There are multiple installation methods, but I prefer using manifests:
 
 ```sh
@@ -101,7 +101,7 @@ kubectl apply --server-side -f \
 
 ## Creating the PostgreSQL Cluster
 
-Now, let’s create our PostgreSQL cluster and leverage the [managed services](https://cloudnative-pg.io/docs/1.28/service_management/)
+Now, let’s create our PostgreSQL cluster and leverage the [managed services](https://cloudnative-pg.io/docs/current/service_management/)
 feature in CloudNativePG. Specifically, we’ll:
 
 - Disable the creation of the read-only and read services, which are normally

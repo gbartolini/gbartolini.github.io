@@ -57,7 +57,7 @@ in the operand image. However, this approach has significant downsides:
     - They don’t want specific libraries due to CVEs or security concerns.
 - **Operational complexity** – Users must maintain custom images, as outlined
     in our guide on [creating container images](https://cloudnative-pg.io/blog/creating-container-images/) and
-    following our [image requirements](https://cloudnative-pg.io/docs/1.28/container_images/).
+    following our [image requirements](https://cloudnative-pg.io/docs/current/container_images/).
 
 Not everyone has the resources or expertise to do this. Compliance is another
 critical factor.

@@ -60,7 +60,7 @@ Upon inspection, it's evident that the default setting for
 CloudNativePG in line with the PoLA philosophy. This default configuration
 essentially restricts network connections via the `postgres` user, a user
 crucial for the operator to coordinate and manage a PostgreSQL server through
-the [instance manager](https://cloudnative-pg.io/docs/1.28/instance_manager/).
+the [instance manager](https://cloudnative-pg.io/docs/current/instance_manager/).
 
 To gain insight into the configuration of PostgreSQL Host-Based Authentication,
 we can execute the following query:
@@ -95,7 +95,7 @@ The final default rule stipulates that, with a password in place, you can
 connect with any user from anywhere to any database, using both TLS and non-TLS
 connections. If this default configuration isn't suitable, you have the
 flexibility to enhance security by adding a more rigorous rule in the `pg_hba`
-file. For additional details, refer to ["The `pg_hba` section"](https://cloudnative-pg.io/docs/1.28/postgresql_conf/#the-pg_hba-section).
+file. For additional details, refer to ["The `pg_hba` section"](https://cloudnative-pg.io/docs/current/postgresql_conf/#the-pg_hba-section).
 
 An added security benefit is that the `postgres` user within the database has a
 password set to `NULL`, effectively thwarting any unauthorized authentication

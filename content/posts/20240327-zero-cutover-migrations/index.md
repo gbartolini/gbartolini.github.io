@@ -52,11 +52,11 @@ The most notable ones are that PostgreSQL doesn’t replicate:
 Considering that you generally delimit the migration duration in time, with
 exact start and finish dates, the only blocker is the last one. The good news
 is that CloudNativePG now covers the first two limitations entirely with the
-help of the [`cnpg` plugin](https://cloudnative-pg.io/docs/1.28/kubectl-plugin/),
+help of the [`cnpg` plugin](https://cloudnative-pg.io/docs/current/kubectl-plugin/),
 as I will show you in this article.
 
 However, this approach will not work if you use large objects and you must
-perform an [offline migration](https://cloudnative-pg.io/docs/1.28/database_import/).
+perform an [offline migration](https://cloudnative-pg.io/docs/current/database_import/).
 The rest of this article assumes that limitations don’t apply to your case.
 
 ## About near-zero downtime migrations
@@ -210,7 +210,7 @@ going to do now is create a new CloudNativePG cluster in which we:
 - Define an external cluster called `rds` pointing to our PostgreSQL database
   in RDS using the `postgres` user
 - Take advantage of the `schemaOnly` option of the
-  [microservice database import capability](https://cloudnative-pg.io/docs/1.28/database_import/#the-microservice-type)
+  [microservice database import capability](https://cloudnative-pg.io/docs/current/database_import/#the-microservice-type)
 
 First, create the `rds-superuser` secret for the credentials of the `postgres`
 user:

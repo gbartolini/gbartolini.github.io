@@ -129,7 +129,7 @@ Leveraging the `--mode desktop` option provided a frictionless experience,
 bypassing authentication for swift experimentation.
 
 For further insights and detailed instructions, refer to the [CloudNativePG
-documentation](https://cloudnative-pg.io/docs/1.28/kubectl-plugin/#using-pgadmin4-for-evaluationdemonstration-purposes-only)
+documentation](https://cloudnative-pg.io/docs/current/kubectl-plugin/#using-pgadmin4-for-evaluationdemonstration-purposes-only)
 on the `cnpg` plugin.
 
 As usual, if you found this article informative, feel free to share it within

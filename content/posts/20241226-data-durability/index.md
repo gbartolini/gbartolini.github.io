@@ -30,7 +30,7 @@ PostgreSQL cluster.
 As detailed in ["CNPG Recipe 13"]({{< relref "../20240910-syncrep/index.md" >}}),
 CloudNativePG 1.24 introduced a new API for managing synchronous replication,
 marking the beginning of the
-[deprecation process for the previous method based on `minSyncReplicas` and `maxSyncReplicas`](https://cloudnative-pg.io/docs/1.28/replication/#synchronous-replication-deprecated).
+[deprecation process for the previous method based on `minSyncReplicas` and `maxSyncReplicas`](https://cloudnative-pg.io/docs/current/replication/#synchronous-replication-deprecated).
 
 However, a significant difference existed between the old and new methods in
 terms of data durability:

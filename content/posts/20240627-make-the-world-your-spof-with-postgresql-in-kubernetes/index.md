@@ -139,7 +139,7 @@ operational requirements. Ahead of planned switchovers, scaling up to two
 replicas is feasible.
 
 CloudNativePG introduces the concept of a
-[**replica cluster**](https://cloudnative-pg.io/docs/1.28/replica_cluster/).
+[**replica cluster**](https://cloudnative-pg.io/docs/current/replica_cluster/).
 These are PostgreSQL clusters in continuous recovery mode, with one replica
 elected as the *designated primary* ready to assume the primary role if
 necessary. Other replicas remain synchronised through PostgreSQL's native
@@ -220,7 +220,7 @@ spec:
     source: pg16-eu-western
 ```
 
-We use the new [image catalog](https://cloudnative-pg.io/docs/1.28/image_catalog/)
+We use the new [image catalog](https://cloudnative-pg.io/docs/current/image_catalog/)
 feature to specify PostgreSQL 16. Subsequently, we configure three instances
 with synchronous replication quorum, ensuring continuous data consistency (RPO
 = 0).
@@ -273,7 +273,7 @@ detailed discussion of this topic is beyond the scope of this article._
 
 ---
 
-As a best practice, consider [scheduling your backups](https://cloudnative-pg.io/docs/1.28/backup/#scheduled-backups)
+As a best practice, consider [scheduling your backups](https://cloudnative-pg.io/docs/current/backup/#scheduled-backups)
 and immediately initiating one to expedite replica setup in the Western Europe
 data centre. For instance, a daily backup can be scheduled as follows:
 

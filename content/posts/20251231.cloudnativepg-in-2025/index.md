@@ -53,11 +53,11 @@ Being part of the sandbox has been highly **strategic**, allowing us to
 collaborate deeply with other CNCF projects to solve complex architectural
 challenges. In 2025, we focused on three key integrations:
 
-- [**Cilium**](https://cloudnative-pg.io/docs/1.28/cncf-projects/cilium):
+- [**Cilium**](https://cloudnative-pg.io/docs/current/cncf-projects/cilium):
   Enhancing pod-to-pod security and network policies tailored for database
   traffic.  
 
-- [**External Secrets Operator (ESO)**](https://cloudnative-pg.io/docs/1.28/cncf-projects/external-secrets):
+- [**External Secrets Operator (ESO)**](https://cloudnative-pg.io/docs/current/cncf-projects/external-secrets):
   Standardising how database credentials and certificates are injected and
   rotated.  
 
@@ -78,15 +78,15 @@ We [responded to community concerns](https://github.com/cloudnative-pg/cloudnati
 regarding rare failure modes in environments without synchronous replication by
 significantly hardening our HA logic:
 
-- [**Primary isolation check**](https://cloudnative-pg.io/docs/1.28/instance_manager#primary-isolation):
+- [**Primary isolation check**](https://cloudnative-pg.io/docs/current/instance_manager#primary-isolation):
   We introduced a mechanism where a primary node can self-fence if it loses
   connectivity with the rest of the cluster, preventing it from accepting writes
   while a new primary is being elected.  
-- [**Failover quorum with synchronous replication**](https://cloudnative-pg.io/docs/1.28/failover/#failover-quorum-quorum-based-failover):
+- [**Failover quorum with synchronous replication**](https://cloudnative-pg.io/docs/current/failover/#failover-quorum-quorum-based-failover):
   We promoted to stable a quorum-based mechanism that ensures failover only
   occurs when a majority of nodes agree, providing much higher consistency
   guarantees.  
-- [**Improved probe infrastructure**](https://cloudnative-pg.io/docs/1.28/instance_manager):
+- [**Improved probe infrastructure**](https://cloudnative-pg.io/docs/current/instance_manager):
   We overhauled the startup, readiness, and liveness probes to be more granular.
   This ensures that a node is only considered "ready" when it is truly capable
   of serving traffic safely, reducing the risk of routing errors during volatile
@@ -101,7 +101,7 @@ move away from monolithic custom images:
 - **The [`postgres-extensions-containers` project](https://github.com/cloudnative-pg/postgres-extensions-containers):**
   We now build independent, self-contained OCI images for individual
   extensions.  
-- [**Dynamic loading**](https://cloudnative-pg.io/docs/1.28/imagevolume_extensions):
+- [**Dynamic loading**](https://cloudnative-pg.io/docs/current/imagevolume_extensions):
   Using the [Kubernetes `VolumeSource` feature](https://github.com/kubernetes/enhancements/issues/4639),
   CloudNativePG can now dynamically mount these extension images at runtime.  
 - **Minimal base images:** We’ve moved away from DockerHub to our own
