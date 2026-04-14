@@ -21,6 +21,9 @@ PostgreSQL cluster in Kubernetes._
 
 <!--more-->
 
+_NOTE: this article has been updated on April 14th, 2026 with the most recent
+version of `kind`._
+
 ---
 
 In [CNPG Recipe #10]({{< relref "../20240814-kind-multi-node/index.md" >}}), I
@@ -96,13 +99,13 @@ configured:
 
 ```console
 NAME                 STATUS   ROLES           AGE     VERSION
-cnpg-control-plane   Ready    control-plane   5m14s   v1.31.0
-cnpg-worker          Ready    infra           5m1s    v1.31.0
-cnpg-worker2         Ready    app             5m1s    v1.31.0
-cnpg-worker3         Ready    postgres        5m      v1.31.0
-cnpg-worker4         Ready    postgres        5m1s    v1.31.0
-cnpg-worker5         Ready    postgres        5m1s    v1.31.0
-cnpg-worker6         Ready    <none>          5m1s    v1.31.0
+cnpg-control-plane   Ready    control-plane   5m14s   v1.35.0
+cnpg-worker          Ready    infra           5m1s    v1.35.0
+cnpg-worker2         Ready    app             5m1s    v1.35.0
+cnpg-worker3         Ready    postgres        5m      v1.35.0
+cnpg-worker4         Ready    postgres        5m1s    v1.35.0
+cnpg-worker5         Ready    postgres        5m1s    v1.35.0
+cnpg-worker6         Ready    <none>          5m1s    v1.35.0
 ```
 
 To inspect the taints applied to a specific node, use:
