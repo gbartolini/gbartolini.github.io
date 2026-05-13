@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: sample-data-init
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: psql
+        image: ghcr.io/cloudnative-pg/postgresql:18-minimal-trixie
+        env:
+        - name: PGPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: crunchy-pguser-cnpg
+              key: password
+        command:
+        - psql
+        - -h
+        - crunchy-primary.default.svc
+        - -U
+        - cnpg
+        - app
+        - -c
+        - |
+          CREATE TABLE orders (
+            id SERIAL PRIMARY KEY,
+            description TEXT NOT NULL,
+            created_at TIMESTAMPTZ DEFAULT now()
+          );
+          INSERT INTO orders (description)
+          SELECT 'Order ' || g FROM generate_series(1, 1000) AS g;

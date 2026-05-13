@@ -1,0 +1,39 @@
+apiVersion: postgres-operator.crunchydata.com/v1beta1
+kind: PostgresCluster
+metadata:
+  name: crunchy
+spec:
+  postgresVersion: 17
+  patroni:
+    dynamicConfiguration:
+      postgresql:
+        parameters:
+          wal_level: logical
+  instances:
+  - name: instance1
+    replicas: 1
+    dataVolumeClaimSpec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi
+  backups:
+    pgbackrest:
+      repos:
+      - name: repo1
+        volume:
+          volumeClaimSpec:
+            accessModes:
+            - ReadWriteOnce
+            resources:
+              requests:
+                storage: 5Gi
+  users:
+  - name: app
+    databases:
+    - app
+  - name: cnpg
+    databases:
+    - app
+    options: "SUPERUSER"

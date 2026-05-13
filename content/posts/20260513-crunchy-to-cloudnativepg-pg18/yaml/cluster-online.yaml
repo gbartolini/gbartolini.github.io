@@ -1,0 +1,40 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: pg-app
+spec:
+  instances: 1
+  imageCatalogRef:
+    apiGroup: postgresql.cnpg.io
+    kind: ClusterImageCatalog
+    name: postgresql-minimal-trixie
+    major: 18
+  storage:
+    size: 5Gi
+  postgresql:
+    extensions:
+      - name: pgaudit
+    parameters:
+      pgaudit.log: "all, -misc"
+      pgaudit.log_catalog: "off"
+      pgaudit.log_parameter: "on"
+      pgaudit.log_relation: "on"
+  bootstrap:
+    initdb:
+      import:
+        type: microservice
+        schemaOnly: true
+        databases:
+        - app
+        source:
+          externalCluster: crunchy
+  externalClusters:
+  - name: crunchy
+    connectionParameters:
+      host: crunchy-primary.default.svc
+      port: "5432"
+      user: cnpg
+      dbname: app
+    password:
+      name: crunchy-pguser-cnpg
+      key: password

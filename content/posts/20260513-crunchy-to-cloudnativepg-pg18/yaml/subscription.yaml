@@ -1,0 +1,12 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Subscription
+metadata:
+  name: pg-app-migration
+spec:
+  cluster:
+    name: pg-app
+  dbname: app
+  name: migration
+  externalClusterName: crunchy
+  publicationName: migration
+  subscriptionReclaimPolicy: delete
