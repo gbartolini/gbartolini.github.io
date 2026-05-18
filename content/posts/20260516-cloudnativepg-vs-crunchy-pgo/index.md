@@ -23,10 +23,12 @@ a genuine respect for what Crunchy Data built in this space._
 
 ---
 
-Since
+For years, I resisted writing a direct comparison between CloudNativePG and
+Crunchy PGO. It felt like the wrong kind of article to write from where I sit.
+But after several years of both projects maturing, and particularly since
 [Crunchy Data was acquired by Snowflake](https://www.snowflake.com/en/news/press-releases/snowflake-acquires-crunchy-data-to-bring-enterprise-ready-postgres-offering-to-the-ai-data-cloud/),
-I have been asked with increasing frequency how CloudNativePG compares to
-Crunchy PGO. I wrote
+I have been asked with increasing frequency how the two operators compare. I
+now think the time is right. Last week, I wrote
 [Recipe 24]({{< relref "../20260513-crunchy-to-cloudnativepg-pg18/index.md" >}})
 to answer the practical question of how to migrate. This post attempts something
 harder: an honest assessment of why the two operators differ and what those
@@ -149,11 +151,22 @@ server outage? CloudNativePG's answer is to suspend failover operations and
 prioritise data protection. But I think this question deserves a frank response
 rather than purely a technical one.
 
-If your Kubernetes API server is unavailable, your entire cluster is
-experiencing a major incident. Every application running on it is affected, not
-just PostgreSQL. Deciding which database instance to promote is not your most
-urgent problem in that scenario. In our view, the more robust answer is a
-resilient multi-region architecture, which CloudNativePG supports through its
+It is worth being precise here. As the
+[Kubernetes documentation notes](https://kubernetes.io/docs/tasks/debug/debug-cluster/#specific-scenarios),
+existing pods continue to run when the API server is unavailable, because the
+Kubelet manages them locally. What stops is scheduling, reconciliation and
+operator logic, including CloudNativePG's controller. Without the API server,
+CloudNativePG cannot make global decisions about the cluster, such as
+triggering a failover, and attempting to do so without a reliable view of the
+full cluster state would introduce risk rather than remove it. Suspending
+those decisions and prioritising data protection is therefore not a limitation
+so much as the honest consequence of a design that trusts a single,
+authoritative source of truth. It is also worth noting that Kubernetes itself is designed to address control
+plane availability risks through deployment across multiple availability
+zones, making a full API server outage an increasingly unlikely event in a
+properly configured cluster. In our view, the more robust answer for scenarios
+where the control plane itself is at risk is a resilient multi-region
+architecture, which CloudNativePG supports through its
 [distributed topology](https://cloudnative-pg.io/docs/current/replica_cluster#distributed-topology)
 for replica clusters.
 
@@ -167,9 +180,9 @@ operational transition requires some adjustment to their mental model.
 
 The architectural choice to embed nothing but PostgreSQL in the operand image
 has direct consequences for image size and security posture. Crunchy's operand
-image bundles Patroni, pgBackRest, pgAudit, pgvector, TimescaleDB, pg_cron,
-pg_partman and other extensions into a single UBI9-based image, because they all
-need to be co-located for Patroni to function. CloudNativePG's minimal image
+image bundles Patroni (and its Python runtime), pgBackRest, pgAudit, pgvector,
+TimescaleDB, pg_cron, pg_partman and other extensions into a single UBI9-based
+image, because they all need to be co-located for Patroni to function. CloudNativePG's minimal image
 contains only PostgreSQL, with extensions delivered at runtime as OCI image
 volumes via the Kubernetes `ImageVolume` feature (requires PostgreSQL 18 or
 later and Kubernetes 1.35 or later, where `ImageVolume` is enabled by default;
