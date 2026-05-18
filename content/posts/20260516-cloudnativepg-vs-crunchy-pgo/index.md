@@ -221,10 +221,18 @@ Every image in the CloudNativePG ecosystem — operator, operand, extension imag
 This is an area where CloudNativePG has invested heavily and where the
 difference is concrete.
 
-Crunchy PGO v6 provides major version upgrades through a declarative
-`PostgresCluster` spec change, executed via an imperative reconciliation loop.
-The process requires a maintenance window proportional to dataset size and
-offers limited rollback options.
+Crunchy PGO v6 provides
+[major version upgrades](https://access.crunchydata.com/documentation/postgres-operator/latest/guides/major-postgres-version-upgrade)
+via a dedicated `PGUpgrade` CRD. The cluster must be fully shut down before
+the upgrade can proceed; `pg_upgrade` then runs to completion before the
+cluster is brought back online, giving a downtime window proportional to
+dataset size. The process is explicitly described as permanent in the
+documentation: there is no declarative rollback path, and Crunchy recommends
+keeping a copy of the cluster at the old version if rollback is a concern.
+Standby clusters are not supported during the upgrade and must be deleted and
+rebuilt from scratch afterwards. Several post-upgrade tasks also require
+manual intervention: running `ANALYZE`, upgrading extensions and cleaning up
+old data directories.
 
 As I showed in
 [Recipe 24]({{< relref "../20260513-crunchy-to-cloudnativepg-pg18/index.md" >}}),
