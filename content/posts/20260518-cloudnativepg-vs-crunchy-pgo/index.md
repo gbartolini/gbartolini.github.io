@@ -1,6 +1,6 @@
 ---
 title: "CloudNativePG and Crunchy PGO: an honest, opinionated comparison"
-date: 2026-05-16T09:00:00+10:00
+date: 2026-05-18T16:54:47+10:00
 description: "A personal comparison of CloudNativePG and Crunchy PGO, covering architecture, image design, backup, upgrades, observability, licensing and community health."
 tags: ["postgresql", "postgres", "kubernetes", "k8s", "cloudnativepg", "cnpg",
   "dok", "data on kubernetes", "crunchy", "pgo", "operator", "comparison",
@@ -109,11 +109,11 @@ the new primary regardless of its name or index. StatefulSet-bound ordinal logic
 cannot express that kind of decision natively; it requires a separate
 coordination layer, which is exactly what Patroni provides in PGO's case.
 
-Direct Pod management also enables CloudNativePG to coordinate updates to
-sensitive PostgreSQL parameters (those that must be equal to or greater on a
-standby than on the primary, such as `max_connections` and `max_wal_senders`) in
-the correct order across the cluster. With StatefulSets, that kind of
-coordinated sequencing requires logic on top of the primitive.
+Direct Pod management also enables CloudNativePG to coordinate configuration
+changes across the cluster in the correct order, including parameters that
+must be set to equal or higher values on standbys than on the primary before
+any change is applied. With StatefulSets, that kind of coordinated sequencing
+requires additional logic on top of the primitive.
 
 ## The Instance Manager
 
@@ -121,28 +121,27 @@ There are no HA management sidecars in CloudNativePG. The management logic runs
 as an Instance Manager, a Go binary that acts as PID 1 inside the PostgreSQL
 container. It handles the full Postgres lifecycle, participates in self-healing
 and communicates directly with the Kubernetes API to report health, replication
-lag and LSN.
+lag and position.
 
-The probes it exposes to the Kubelet are database-aware rather than generic. The
-startup probe prevents the Kubelet from restarting the pod during `initdb`,
-recovery or WAL replay. The readiness probe validates `pg_isready` on the
-primary and, when configured, checks replication lag on replicas before
-allowing traffic. The liveness probe on the primary performs an isolation
-check: if both the API server and peer instances become simultaneously
-unreachable, the probe deliberately fails, causing the Kubelet to restart the
-pod after 30 seconds (configurable). This mitigates the risk of data loss from
-a possible split-brain by taking the isolated primary offline (a scenario that
-cannot arise when synchronous replication is in use). It is worth noting
-that
-Patroni introduced a similar capability in
+What makes this particularly relevant is how the Instance Manager interacts
+with the Kubelet through health probes that are database-aware rather than
+generic. The startup probe prevents the Kubelet from restarting the pod
+during initialisation or recovery. The readiness probe checks whether the
+instance is ready to serve traffic, including replication lag on replicas when
+configured. The liveness probe on the primary performs an isolation check: if
+both the API server and peer instances become simultaneously unreachable, the
+probe deliberately fails, causing the Kubelet to restart the pod and take the
+isolated primary offline. This mitigates the risk of a split-brain scenario
+(though it cannot arise when synchronous replication is in use). Patroni
+introduced a similar capability in
 [version 3.0.0](https://github.com/patroni/patroni/blob/master/docs/releases.rst#version-300)
 through its [DCS failsafe mode](https://github.com/patroni/patroni/pull/2379).
 CloudNativePG independently implemented the same concept the Kubernetes way:
 rather than querying peers over a REST API, it lets the liveness probe and
 the Kubelet do the work. The discussion that led to our implementation is
-[here](https://github.com/cloudnative-pg/cloudnative-pg/discussions/7462). It is
-a good example of how the same problem can be solved with fundamentally
-different primitives depending on your execution environment.
+[here](https://github.com/cloudnative-pg/cloudnative-pg/discussions/7462),
+and it is a good example of how the same problem can be solved with
+fundamentally different primitives depending on your execution environment.
 
 ## On Kubernetes API server availability
 
@@ -161,10 +160,10 @@ triggering a failover, and attempting to do so without a reliable view of the
 full cluster state would introduce risk rather than remove it. Suspending
 those decisions and prioritising data protection is therefore not a limitation
 so much as the honest consequence of a design that trusts a single,
-authoritative source of truth. It is also worth noting that Kubernetes itself is designed to address control
-plane availability risks through deployment across multiple availability
-zones, making a full API server outage an increasingly unlikely event in a
-properly configured cluster. In our view, the more robust answer for scenarios
+authoritative source of truth. It is also worth noting that Kubernetes itself
+is designed to address control plane availability risks through deployment
+across multiple availability zones, making a full API server outage an
+increasingly unlikely event in a properly configured cluster. In our view, the more robust answer for scenarios
 where the control plane itself is at risk is a resilient multi-region
 architecture, which CloudNativePG supports through its
 [distributed topology](https://cloudnative-pg.io/docs/current/replica_cluster#distributed-topology)
@@ -182,11 +181,12 @@ The architectural choice to embed nothing but PostgreSQL in the operand image
 has direct consequences for image size and security posture. Crunchy's operand
 image bundles Patroni (and its Python runtime), pgBackRest, pgAudit, pgvector,
 TimescaleDB, pg_cron, pg_partman and other extensions into a single UBI9-based
-image, because they all need to be co-located for Patroni to function. CloudNativePG's minimal image
-contains only PostgreSQL, with extensions delivered at runtime as OCI image
-volumes via the Kubernetes `ImageVolume` feature (requires PostgreSQL 18 or
-later and Kubernetes 1.35 or later, where `ImageVolume` is enabled by default;
-it can be enabled via feature gate on 1.33 and 1.34), covered in detail in
+image, because they all need to be co-located for Patroni to function.
+CloudNativePG's minimal image contains only PostgreSQL, with extensions
+delivered at runtime as OCI image volumes via the Kubernetes `ImageVolume`
+feature (requires PostgreSQL 18 or later and Kubernetes 1.35 or later, where
+`ImageVolume` is enabled by default; it can be enabled via feature gate on
+1.33 and 1.34), covered in detail in
 [CNPG Recipe 23]({{< relref "../20251201-extensions/index.md" >}}). Adding or
 removing an extension is a declarative change to the `Cluster` manifest; it
 does not require a different base image and, crucially, does not break
@@ -204,15 +204,17 @@ source image, zero critical vulnerabilities against two and four high against
 156. Its Debian Trixie Slim base has zero known vulnerabilities of its own. The
 package count matters operationally: fewer packages means a smaller blast radius
 for any future disclosure and a shorter list to audit. The CNPG minimal image
-also ships with a full SBOM provenance attestation.
+also ships with a full Software Bill of Materials (SBOM) provenance
+attestation.
 
 On the topic of image licensing: Crunchy Data's container images have
 historically been distributed under the
 [Crunchy Data Developer Program](https://www.crunchydata.com/developers/terms-of-use),
 which restricts production use for organisations with more than 50 employees.
 The operator itself is open-source; the images it uses by default have not
-always been. Whether this has changed following the Snowflake acquisition is something
-to verify directly with Crunchy before making a procurement decision.
+always been. Whether this has changed following the Snowflake acquisition is
+something to verify directly with Crunchy before making a procurement
+decision.
 Every image in the CloudNativePG ecosystem — operator, operand, extension images
 — is fully open-source under the Apache License 2.0.
 
@@ -268,9 +270,8 @@ restore. At
 [KubeCon Atlanta 2023](https://www.youtube.com/watch?v=WGQq4MWzW6E), we
 demonstrated a 2-minute recovery of a 4.5 TB database using this approach.
 
-The second is the plugin interface (
-[CNPG-I](https://cloudnative-pg.io/docs/current/cnpg_i)), which decouples backup
-tooling from the operator entirely. The Barman Cloud Plugin is the reference
+The second is [CNPG-I](https://cloudnative-pg.io/docs/current/cnpg_i), a
+plugin interface that decouples backup tooling from the operator entirely. The Barman Cloud Plugin is the reference
 implementation and the only one currently maintained by the community, but the
 interface is open: nothing prevents the community or organisations from writing
 plugins for other tools such as pgBackRest or WAL-G.
@@ -354,11 +355,12 @@ debt across three areas that are consuming most of our cognitive budget right
 now: extension image support (where the work is almost complete), the migration
 from the in-core Barman Cloud integration to the plugin model (also nearing
 completion) and the refactoring of the end-to-end test suite to work with
-CNPG-I plugins. Once these tracks land, the review surface narrows considerably and the
-backlog should follow.
+CNPG-I plugins. Once these tracks land, the review surface narrows
+considerably and the backlog should follow.
 
 CloudNativePG is a [CNCF Sandbox project](https://www.cncf.io/), currently
-[in the queue for incubation](https://github.com/cncf/toc/issues/1961), with health metrics publicly visible on the
+[in the queue for incubation](https://github.com/cncf/toc/issues/1961), with
+health metrics publicly visible on the
 [LFX Insights dashboard](https://insights.linuxfoundation.org/project/cloudnativepg).
 The main repository has 8.6k stars; across all repositories in the CloudNativePG
 GitHub organisation, the total reaches nearly 10,000. The majority of the
@@ -409,9 +411,10 @@ the backup model.
 
 If you are evaluating PostgreSQL operators today and your primary concerns are
 long-term architectural soundness, open governance and a community with visible
-momentum, I think the data presented here is worth reflecting on carefully. That is my opinion, and I hold it knowing it is not neutral. It
-cannot be, coming from a maintainer and founder of the project (had we not
-thought it differently from the start, there would be no CloudNativePG now).
+momentum, I think the data presented here is worth reflecting on carefully.
+That is my opinion, and I hold it knowing it is not neutral. It cannot be,
+coming from a maintainer and founder of the project (had we not thought it
+differently from the start, there would be no CloudNativePG now).
 
 Ultimately, the choice is yours. My honest advice, bias acknowledged, is to try
 both and decide what fits your team, your workload and your organisation best.
