@@ -11,15 +11,13 @@ thumb: thumb.jpg
 draft: false
 ---
 
-_Since Crunchy Data was acquired by Snowflake, the comparison question has
-followed me everywhere. As a co-founder and daily maintainer of CloudNativePG, I
-am the wrong person to ask for neutrality, and I will not pretend otherwise.
-What I can offer is honest bias, which I find more useful than performed
-objectivity. What follows acknowledges what Crunchy built before most engineers
-took running PostgreSQL on Kubernetes seriously, examines the architectural
-decisions that separate the two operators, and presents the community data
-without excessive editorialising. The conclusion will not surprise anyone who
-knows me._
+_This article compares CloudNativePG and Crunchy PGO, two of the most adopted
+open-source operators for running PostgreSQL on Kubernetes. It covers
+architecture, image design, backup strategy, major version upgrades,
+observability, licensing and community health. As a co-founder and maintainer
+of CloudNativePG, I make no claim to neutrality, and I say so upfront. What I
+can offer is informed bias, grounded in years of daily work on the project and
+a genuine respect for what Crunchy Data built in this space._
 
 <!--more-->
 
@@ -70,13 +68,14 @@ availability should live.
 Crunchy PGO delegates HA to [Patroni](https://patroni.readthedocs.io/), a
 Python-based distributed HA manager that runs as a process inside each pod.
 Patroni is a well-respected project and, in my view, the state of the art for
-PostgreSQL cluster management on traditional Linux environments. That is
-precisely the point: it was designed for a world without Kubernetes, and using
-it inside a Kubernetes pod means running a sophisticated distributed system
-inside another sophisticated distributed system. Patroni coordinates failover
-through a distributed configuration store, which can be etcd, Consul, ZooKeeper
-or Kubernetes itself, and PGO's role is primarily to provision and configure
-what Patroni needs. The operator wraps Patroni rather than replacing it.
+PostgreSQL cluster management on traditional Linux environments. Patroni
+coordinates failover through a distributed configuration store, which can be
+etcd, Consul, ZooKeeper or Kubernetes itself, and PGO's role is primarily to
+provision and configure what Patroni needs. The operator builds on top of
+Patroni rather than replacing it. In a Kubernetes context, this means running
+two sophisticated distributed systems alongside each other, which is a
+perfectly defensible choice, though one that carries trade-offs our team
+weighed differently.
 
 At KubeCon Salt Lake City in 2024,
 [an engineer from Crunchy explained their reasoning directly](https://youtu.be/p2v7bPJkrVU?si=oBhPhAPDlfI1G4ec&t=152):
@@ -153,17 +152,16 @@ rather than purely a technical one.
 If your Kubernetes API server is unavailable, your entire cluster is
 experiencing a major incident. Every application running on it is affected, not
 just PostgreSQL. Deciding which database instance to promote is not your most
-urgent problem in that scenario. Introducing a parallel HA system to handle that
-decision during a cluster-wide outage is solving the wrong problem at the wrong
-layer. The correct response is a resilient multi-region architecture, which
-CloudNativePG supports through its
+urgent problem in that scenario. In our view, the more robust answer is a
+resilient multi-region architecture, which CloudNativePG supports through its
 [distributed topology](https://cloudnative-pg.io/docs/current/replica_cluster#distributed-topology)
 for replica clusters.
 
-The practical consequence of this approach is a much smaller operational
-surface. You do not need to understand Patroni to operate CloudNativePG. There
-is no additional distributed system to monitor, debug or upgrade alongside the
-operator. Failures have fewer places to hide.
+The practical consequence of this approach, in our experience, is a smaller
+operational surface: there is no additional distributed system to monitor,
+debug or upgrade alongside the operator, and failures have fewer places to
+hide. That said, teams already deeply familiar with Patroni may find the
+operational transition requires some adjustment to their mental model.
 
 ## Image design, footprint and security
 
@@ -200,9 +198,8 @@ historically been distributed under the
 [Crunchy Data Developer Program](https://www.crunchydata.com/developers/terms-of-use),
 which restricts production use for organisations with more than 50 employees.
 The operator itself is open-source; the images it uses by default have not
-always been. This is a distinction that organisations often discover later than
-they should. Whether this has changed following the Snowflake acquisition is
-something to verify directly with Crunchy before making a procurement decision.
+always been. Whether this has changed following the Snowflake acquisition is something
+to verify directly with Crunchy before making a procurement decision.
 Every image in the CloudNativePG ecosystem — operator, operand, extension images
 — is fully open-source under the Apache License 2.0.
 
@@ -284,10 +281,11 @@ will let the data speak rather than editorialise.
 _I include Patroni in the chart below not as a direct competitor in the
 operator space, but as a reference point for broader PostgreSQL adoption.
 Patroni is the dominant HA solution for PostgreSQL on traditional Linux
-environments and has a significant community of its own. Seeing CloudNativePG approach and cross its star count gives a sense of the
-momentum behind the cloud-native Postgres movement, beyond the narrower
-operator category. CloudNativePG's star growth is entirely organic: no
-star-farming campaigns, no artificial amplification._
+environments and has a significant community of its own. Seeing CloudNativePG
+approach and cross its star count gives a sense of the momentum behind the
+cloud-native Postgres movement, beyond the narrower operator category.
+CloudNativePG's star growth is entirely organic: no star-farming campaigns,
+no artificial amplification._
 
 {{< figure src="images/star-history-2026518.png"
     caption="GitHub star history for Patroni, CloudNativePG and Crunchy PGO ([star-history.com](https://www.star-history.com/?repos=zalando%2Fpatroni%2Ccloudnative-pg%2Fcloudnative-pg%2Ccrunchydata%2Fpostgres-operator&type=date&legend=top-left))"
@@ -314,11 +312,12 @@ The table below covers signals measured over the 18 months to May 2026.
 | ADOPTERS.md | none | [yes](https://github.com/cloudnative-pg/cloudnative-pg/blob/main/ADOPTERS.md) |
 | Documentation | proprietary portal | fully open |
 
-The 8-month gap in PGO's release history (March to November 2025) is a concrete
-signal of the slow development and release pace that has characterised the
-project recently. The combination of that pace, the Snowflake acquisition and
-the absence of public governance is what teams are actually reacting to when
-they ask me about their options.
+The 8-month gap in PGO's release history (March to November 2025) stands out
+in the data. Whether that reflects a deliberate consolidation phase or
+something more structural, I genuinely do not know. What I can say is that
+the combination of that pace, the Snowflake acquisition and the absence of
+public governance is what teams most frequently raise when they ask me about
+their options.
 
 I will also be candid about the CloudNativePG side of the table. 174 open pull
 requests is a high number, and it reflects a genuine challenge: the project is
@@ -379,17 +378,17 @@ long-term thinking that goes into how CloudNativePG is maintained.
 ## My honest conclusion
 
 Crunchy Data was a pioneer and built something real. I have genuine respect for
-that. But the landscape in 2026 looks different from 2017: Kubernetes is a
-mature control plane, the operator pattern is well understood and the cost of
-running a parallel distributed system (Patroni) inside your database pods is no
-longer justified by the benefits it provides. CloudNativePG was designed from
-the start to exploit what Kubernetes actually offers, and that decision shows in
-everything from the architecture to the image footprint to the backup model.
+that. But the landscape in 2026 looks different from 2017: Kubernetes is a mature
+control plane, the operator pattern is well understood and, in my view, the
+trade-offs of running a parallel distributed system inside your database pods
+weigh more heavily today than they did then. CloudNativePG was designed from
+the start to exploit what Kubernetes actually offers, and I believe that
+decision shows in everything from the architecture to the image footprint to
+the backup model.
 
-If you are evaluating PostgreSQL operators today and your primary concern is
-long-term architectural soundness, open governance and a community that is
-gaining momentum rather than losing it, the evidence points clearly in one
-direction. That is my opinion, and I hold it knowing it is not neutral. It
+If you are evaluating PostgreSQL operators today and your primary concerns are
+long-term architectural soundness, open governance and a community with visible
+momentum, I think the data presented here is worth reflecting on carefully. That is my opinion, and I hold it knowing it is not neutral. It
 cannot be, coming from a maintainer and founder of the project (had we not
 thought it differently from the start, there would be no CloudNativePG now).
 
