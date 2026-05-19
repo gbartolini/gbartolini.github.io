@@ -28,10 +28,10 @@ activity) but the underlying worry is consistent. I should be transparent: my
 direct knowledge of the Crunchy operator is limited, given how fundamentally
 different its architecture is from CloudNativePG's, and any opinion I might
 offer on its future would be speculative at best. What matters here is the
-practical question: if you are considering your options, what does the migration
-path look like? If you are running a Crunchy PGO v6 cluster and considering your
-options, this recipe shows you exactly how to migrate to CloudNativePG while
-upgrading to PostgreSQL 18 in the same operation. Two paths are covered: an
+practical question: if you are running a Crunchy PGO v6 cluster and weighing
+your options, what does the migration path look like? This recipe shows you
+exactly how to migrate to CloudNativePG while upgrading to PostgreSQL 18 in
+the same operation. Two paths are covered: an
 **offline** path using CloudNativePG's built-in
 [`pg_dump` import](https://cloudnative-pg.io/docs/current/database_import/), and
 an **online** path using native PostgreSQL
@@ -500,6 +500,11 @@ traffic, and set appropriate resource requests and limits. The
 [CloudNativePG documentation](https://cloudnative-pg.io/docs/current/) covers
 all of these; treat the manifests here as a starting point, not a production
 template.
+
+If you are interested in a broader comparison of the two operators, covering
+architecture, image design, backup, upgrades, observability and community
+health, have a look at
+[CloudNativePG and Crunchy PGO: an honest, opinionated comparison]({{< relref "../20260518-cloudnativepg-vs-crunchy-pgo/index.md" >}}).
 
 ---
 
