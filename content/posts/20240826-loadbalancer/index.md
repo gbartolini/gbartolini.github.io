@@ -1,15 +1,15 @@
 ---
 title: "CNPG Recipe 12 - Exposing Postgres outside Kubernetes with Service Templates"
 date: 2024-08-26T09:38:30+02:00
-description: "How to use CloudNativePG 1.24's service templates to create `LoadBalancer` services for exposing PostgreSQL outside Kubernetes clusters."
+description: "How to use CloudNativePG's service templates to create `LoadBalancer` services for exposing PostgreSQL outside Kubernetes clusters."
 tags: ["postgresql", "postgres", "kubernetes", "k8s", "cloudnativepg", "cnpg", "postgresql", "postgres", "dok", "data on kubernetes", "load balancer", "exposing", "cloud-provider-kind" , "Service templates" , "LoadBalancer services" , "DBaaS deployment" , "Kubernetes database" , "Managed services" , "External database access" , "Custom services Kubernetes" ]
 cover: cover.jpg
 thumb: thumb.jpg
 draft: false
 ---
 
-_In this article, I'll introduce you to the new service template feature in
-CloudNativePG 1.24, which greatly simplifies the creation of services such as
+_In this article, I'll introduce you to the service template feature in
+CloudNativePG, which greatly simplifies the creation of services such as
 `LoadBalancer` to expose PostgreSQL outside of your Kubernetes cluster -
 particularly useful for streamlining Database-as-a-Service (DBaaS) deployments.
  I’ll walk you through setting up this feature on your laptop using `kind` and
@@ -18,16 +18,18 @@ capabilities in your own environment._
 
 <!--more-->
 
-_NOTE: this article has been updated on October 17th, 2024 with the most recent
-version of `cloudnative-pg`._
+_NOTE: this article was updated on June 1st, 2026 to reflect the now mature
+`LoadBalancer` support in `kind`, the availability of `cloud-provider-kind`
+via Homebrew and the latest available version of CloudNativePG at this time
+(1.29.1)._
 
 ---
 
-[CloudNativePG 1.24](https://cloudnative-pg.io/releases/cloudnative-pg-1-24.0-released/)
-introduces managed services and service templates, making it easier than ever
-to create additional services—like `LoadBalancer`—to expose PostgreSQL outside
-your Kubernetes cluster. This new feature is a game-changer for simplifying
-DBaaS deployments.
+CloudNativePG provides managed services and service templates, making it easier
+than ever to create additional services (like `LoadBalancer`) to expose
+PostgreSQL outside your Kubernetes cluster. This feature is a game-changer for
+simplifying DBaaS deployments, and it is now available across all supported
+versions of the operator.
 
 To help you get started, I'll show you how to test this feature on your laptop
 using `kind` and `cloud-provider-kind`. Let’s dive in!
@@ -49,8 +51,8 @@ environment required manually creating a `LoadBalancer` service or configuring
 an Ingress. While effective, this process added complexity and overhead to
 DBaaS deployments.
 
-With the release of CloudNativePG 1.24, this task has become significantly
-easier. You can now define custom services for any PostgreSQL `Cluster`
+With CloudNativePG, this task has become significantly easier. You can now
+define custom services for any PostgreSQL `Cluster`
 resource using service templates, making it straightforward to expose your
 databases to external clients - even for evaluation purposes.
 
@@ -70,8 +72,20 @@ We’ll start by creating a new cluster with `kind` to evaluate the
 [documentation](https://kind.sigs.k8s.io/docs/user/loadbalancer/).
 
 First, [install the `cloud-provider-kind` executable on your system](https://github.com/kubernetes-sigs/cloud-provider-kind?tab=readme-ov-file#install).
-The installation method depends on your operating system. On my MacBook, I
-chose to install it using Go:
+The `LoadBalancer` support in `kind` has matured considerably since this article
+was first published, and the recommended setup is now nicely documented in the
+[official `kind` guide](https://kind.sigs.k8s.io/docs/user/loadbalancer/).
+
+The installation method depends on your operating system. The good news for Mac
+users is that `cloud-provider-kind` is now available via Homebrew, which is by
+far the simplest option:
+
+```sh
+brew install cloud-provider-kind
+```
+
+Alternatively, you can still install it with Go or download one of the
+[released binaries](https://github.com/kubernetes-sigs/cloud-provider-kind/releases):
 
 ```sh
 go install sigs.k8s.io/cloud-provider-kind@latest
@@ -96,7 +110,7 @@ There are multiple installation methods, but I prefer using manifests:
 
 ```sh
 kubectl apply --server-side -f \
-  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/releases/cnpg-1.24.1.yaml
+  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/releases/cnpg-1.29.1.yaml
 ```
 
 ## Creating the PostgreSQL Cluster
@@ -160,7 +174,7 @@ Name:                     cluster-example-rw-lb
 Namespace:                default
 Labels:                   cnpg.io/cluster=cluster-example
                           cnpg.io/isManaged=true
-Annotations:              cnpg.io/operatorVersion: 1.24.1
+Annotations:              cnpg.io/operatorVersion: 1.29.1
                           cnpg.io/updateStrategy: patch
 Selector:                 cnpg.io/cluster=cluster-example,cnpg.io/instanceRole=primary
 Type:                     LoadBalancer
@@ -191,8 +205,8 @@ interface for PostgreSQL, which is available on all major platforms. On my Mac,
 I installed it via Homebrew:
 
 ```sh
-brew install postgresql@16
-brew link postgresql@16
+brew install postgresql@18
+brew link postgresql@18
 ```
 
 Ensure the installation is successful by checking the version:
@@ -201,10 +215,10 @@ Ensure the installation is successful by checking the version:
 psql --version
 ```
 
-You should see something like this (16.4 is the latest at the time of writing):
+You should see something like this (18.4 is the latest at the time of writing):
 
 ```console
-psql (PostgreSQL) 16.4 (Homebrew)
+psql (PostgreSQL) 18.4 (Homebrew)
 ```
 
 Now, let's verify the connection to the database:
@@ -231,7 +245,7 @@ Copy the retrieved password, paste it into the `psql` prompt, and you should be
 connected to the database, seeing output similar to this:
 
 ```console
-psql (16.4 (Homebrew))
+psql (18.4 (Homebrew))
 SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, compression: off)
 Type "help" for help.
 
@@ -265,7 +279,7 @@ or `r` for any instance.
 
 ## Conclusions
 
-The introduction of service templates in CloudNativePG 1.24 marks a significant
+Service templates in CloudNativePG mark a significant
 step forward in simplifying and streamlining PostgreSQL deployments in
 Kubernetes, especially in DBaaS scenarios. By enabling the easy creation of
 custom services, such as `LoadBalancer`, directly within your PostgreSQL
@@ -282,8 +296,8 @@ to adopt and experiment with CloudNativePG’s new capabilities.
 This new functionality not only reduces the overhead associated with managing
 external database services but also aligns with the growing need for robust,
 scalable DBaaS solutions. As Kubernetes continues to evolve as a platform for
-running databases, features like service templates in CloudNativePG 1.24 will
-play a crucial role in enabling efficient, reliable, and secure database
+running databases, features like service templates in CloudNativePG will
+play a crucial role in enabling efficient, reliable and secure database
 operations through Infrastructure as Code (IaC).
 
 ---
