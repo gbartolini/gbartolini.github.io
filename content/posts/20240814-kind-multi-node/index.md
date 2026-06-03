@@ -21,7 +21,7 @@ self-managed, or fully managed._
 
 <!--more-->
 
-_NOTE: this article has been updated on April 14th, 2026 with the most recent
+_NOTE: this article has been updated on June 1st, 2026 with the most recent
 version of `kind`._
 
 ---
@@ -109,7 +109,7 @@ Returning:
 
 ```console
 Creating cluster "cnpg" ...
- ✓ Ensuring node image (kindest/node:v1.35.0) 🖼
+ ✓ Ensuring node image (kindest/node:v1.36.1) 🖼
  ✓ Preparing nodes 📦 📦 📦 📦 📦 📦
  ✓ Writing configuration 📜
  ✓ Starting control-plane 🕹️
@@ -135,12 +135,12 @@ This command will return:
 
 ```console
 NAME                 STATUS   ROLES           AGE     VERSION
-cnpg-control-plane   Ready    control-plane   5m4s    v1.35.0
-cnpg-worker          Ready    <none>          4m44s   v1.35.0
-cnpg-worker2         Ready    <none>          4m44s   v1.35.0
-cnpg-worker3         Ready    <none>          4m45s   v1.35.0
-cnpg-worker4         Ready    <none>          4m44s   v1.35.0
-cnpg-worker5         Ready    <none>          4m45s   v1.35.0
+cnpg-control-plane   Ready    control-plane   5m4s    v1.36.1
+cnpg-worker          Ready    <none>          4m44s   v1.36.1
+cnpg-worker2         Ready    <none>          4m44s   v1.36.1
+cnpg-worker3         Ready    <none>          4m45s   v1.36.1
+cnpg-worker4         Ready    <none>          4m44s   v1.36.1
+cnpg-worker5         Ready    <none>          4m45s   v1.36.1
 ```
 
 As you can see, only the `cnpg-control-plane` node has a `control-plane` role.
@@ -181,12 +181,12 @@ Now, if you rerun the `kubectl get nodes` command, you should see the updated ro
 
 ```console
 NAME                 STATUS   ROLES           AGE   VERSION
-cnpg-control-plane   Ready    control-plane   19m   v1.35.0
-cnpg-worker          Ready    infra           19m   v1.35.0
-cnpg-worker2         Ready    app             19m   v1.35.0
-cnpg-worker3         Ready    postgres        19m   v1.35.0
-cnpg-worker4         Ready    postgres        19m   v1.35.0
-cnpg-worker5         Ready    postgres        19m   v1.35.0
+cnpg-control-plane   Ready    control-plane   19m   v1.36.1
+cnpg-worker          Ready    infra           19m   v1.36.1
+cnpg-worker2         Ready    app             19m   v1.36.1
+cnpg-worker3         Ready    postgres        19m   v1.36.1
+cnpg-worker4         Ready    postgres        19m   v1.36.1
+cnpg-worker5         Ready    postgres        19m   v1.36.1
 ```
 
 This output makes it clear that we have six nodes, each ideally dedicated to

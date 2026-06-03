@@ -53,7 +53,7 @@ kind version
 ```
 
 On my laptop, as of the time of the last update, the output is
-`kind v0.31.0 go1.25.5 darwin/arm64`.
+`kind v0.32.0 go1.26.3 darwin/arm64`.
 
 Now, proceed to establish your initial local Kubernetes cluster for
 CloudNativePG with:
@@ -66,7 +66,7 @@ Upon execution, you'll observe the following output:
 
 ```console
 Creating cluster "cnpg" ...
- ✓ Ensuring node image (kindest/node:v1.35.0) 🖼
+ ✓ Ensuring node image (kindest/node:v1.36.1) 🖼
  ✓ Preparing nodes 📦
  ✓ Writing configuration 📜
  ✓ Starting control-plane 🕹️
