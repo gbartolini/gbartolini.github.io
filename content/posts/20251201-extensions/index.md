@@ -227,6 +227,10 @@ they become component owners/maintainers for that extension in the
 CloudNativePG community.
 I will cover our progress on this project in a future post.
 
+_Update: that future post has landed. [Recipe 26]({{< relref "../20260805-image-catalog-extensions/index.md" >}})
+shows CloudNativePG resolving `pgvector` and friends straight from an image
+catalog, so the `image.reference` block above is no longer required._
+
 ---
 
 Stay tuned for the upcoming recipes! For the latest updates, consider

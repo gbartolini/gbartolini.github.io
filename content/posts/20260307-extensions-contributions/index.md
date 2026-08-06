@@ -167,6 +167,10 @@ streamlined; CloudNativePG 1.29 introduces [support for extensions in image cata
 a feature that makes the distribution,discovery and usage of these
 community-maintained images much easier.
 
+_Update: I cover this feature end to end in [Recipe 26]({{< relref "../20260805-image-catalog-extensions/index.md" >}}),
+including deploying the community's extension catalog and what it means for
+`pg_crash` and every extension that follows it._
+
 Finally, I want to thank EDB and EDB's customers for supporting us in this
 endeavour. This project has been nearly two years in the making, and your
 support is what allows us to keep making Postgres better for the years to come

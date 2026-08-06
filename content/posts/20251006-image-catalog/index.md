@@ -264,6 +264,11 @@ To see where this is headed, I invite you to read my previous article on
 ["The Immutable Future of PostgreSQL Extensions"]({{< relref "../20250303-volume-source-extension-control-path/index.md" >}})
 and the official docs on [extension image volumes](https://cloudnative-pg.io/docs/current/imagevolume_extensions/).
 
+_Update: extensions can now be resolved straight from an image catalog too,
+collapsing a Cluster's `postgresql.extensions` stanza down to a bare name.
+See [Recipe 26]({{< relref "../20260805-image-catalog-extensions/index.md" >}})
+for the full walkthrough._
+
 ---
 
 Stay tuned for the upcoming recipes! For the latest updates, consider

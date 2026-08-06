@@ -19,7 +19,7 @@ your future CloudNativePG explorations with a fully open source stack._
 
 <!--more-->
 
-_NOTE: this article has been updated on June 1st, 2026 with the most recent
+_NOTE: this article has been updated on August 6th, 2026 with the most recent
 versions of `kind` and `cloudnative-pg`. You might also be interested in
 the [CNPG Playground project]({{< relref "../20240920-cnpg-playground/index.md">}})
 that was launched in the meantime._
@@ -105,12 +105,12 @@ installation of CloudNativePG.
 To deploy the latest stable version, refer to the
 [CloudNativePG documentation for instructions on installing the operator via Kubernetes manifests](https://cloudnative-pg.io/docs/current/installation_upgrade/#directly-using-the-operator-manifest).
 
-For instance, to install version 1.29.1, the latest available at the time of
+For instance, to install version 1.30.0, the latest available at the time of
 writing, use the following command:
 
 ```sh
 kubectl apply --server-side -f \
-  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.29/releases/cnpg-1.29.1.yaml
+  https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/release-1.30/releases/cnpg-1.30.0.yaml
 ```
 
 This command creates a `Deployment` resource named `cnpg-controller-manager`
@@ -222,9 +222,9 @@ This command typically yields output similar to:
 Cluster Summary
 Name                     default/cluster-example
 System ID:               7591231340975534109
-PostgreSQL Image:        ghcr.io/cloudnative-pg/postgresql:18.3-system-trixie
+PostgreSQL Image:        ghcr.io/cloudnative-pg/postgresql:18.4-system-trixie
 Primary instance:        cluster-example-1
-Primary promotion time:  2026-04-14 09:22:17 +0000 UTC (1m14s)
+Primary promotion time:  2026-08-06 09:22:17 +0000 UTC (1m14s)
 Status:                  Cluster in healthy state
 Instances:               3
 Ready instances:         3
@@ -243,9 +243,9 @@ cluster-example-3  0/6000060  0/6000060  0/6000060  0/6000060   00:00:00   00:00
 Instances status
 Name               Current LSN  Replication role  Status  QoS         Manager Version  Node
 ----               -----------  ----------------  ------  ---         ---------------  ----
-cluster-example-1  0/6000060    Primary           OK      BestEffort  1.29.1           cnpg-control-plane
-cluster-example-2  0/6000060    Standby (async)   OK      BestEffort  1.29.1           cnpg-control-plane
-cluster-example-3  0/6000060    Standby (async)   OK      BestEffort  1.29.1           cnpg-control-plane
+cluster-example-1  0/6000060    Primary           OK      BestEffort  1.30.0           cnpg-control-plane
+cluster-example-2  0/6000060    Standby (async)   OK      BestEffort  1.30.0           cnpg-control-plane
+cluster-example-3  0/6000060    Standby (async)   OK      BestEffort  1.30.0           cnpg-control-plane
 ```
 
 This tool becomes indispensable as it provides essential insights into your
