@@ -1,0 +1,97 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: openbao-db
+  namespace: openbao
+spec:
+  instances: 3
+
+  # Tracks the latest minimal PostgreSQL 18 image via the ClusterImageCatalog
+  # the playground's REQUIREMENTS_ONLY step already deploys.
+  # See https://cloudnative-pg.io/docs/current/image_catalog
+  imageCatalogRef:
+    apiGroup: postgresql.cnpg.io
+    kind: ClusterImageCatalog
+    name: postgresql-minimal-trixie
+    major: 18
+
+  # See https://cloudnative-pg.io/docs/current/scheduling
+  affinity:
+    nodeSelector:
+      node-role.kubernetes.io/postgres: ""
+    tolerations:
+      - key: node-role.kubernetes.io/postgres
+        operator: Exists
+        effect: NoSchedule
+    enablePodAntiAffinity: true
+    topologyKey: topology.kubernetes.io/zone
+    podAntiAffinityType: required
+
+  postgresql:
+    # Synchronous replication: dataDurability defaults to "required", giving
+    # RPO=0 at the cost of pausing writes if no standby is available.
+    # See https://cloudnative-pg.io/docs/current/replication
+    synchronous:
+      method: any
+      number: 1
+
+    # The operator does not add cert rules for DatabaseRole client
+    # certificates automatically: without these, "openbao" and "openbao-rw"
+    # would fall through to the default scram-sha-256 rule, and since
+    # neither role has a passwordSecret, every connection would simply fail.
+    pg_hba:
+      - hostssl openbao openbao all cert
+      - hostssl openbao openbao-rw all cert
+      - hostnossl openbao openbao all reject
+      - hostnossl openbao openbao-rw all reject
+
+    # See https://cloudnative-pg.io/docs/current/postgresql_conf
+    parameters:
+      max_connections: '100'
+      log_checkpoints: 'on'
+      log_lock_waits: 'on'
+      hot_standby_feedback: 'on'
+      shared_memory_type: 'sysv'
+      dynamic_shared_memory_type: 'sysv'
+
+  storage:
+    size: 10Gi
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: role-openbao
+  namespace: openbao
+spec:
+  cluster:
+    name: openbao-db
+  name: openbao
+  login: true
+  clientCertificate:
+    enabled: true
+  databaseRoleReclaimPolicy: retain
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: role-openbao-rw
+  namespace: openbao
+spec:
+  cluster:
+    name: openbao-db
+  name: openbao-rw
+  login: true
+  clientCertificate:
+    enabled: true
+  databaseRoleReclaimPolicy: retain
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: openbao-db
+  namespace: openbao
+spec:
+  name: openbao
+  owner: openbao
+  cluster:
+    name: openbao-db

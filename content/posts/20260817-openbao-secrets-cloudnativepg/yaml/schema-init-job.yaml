@@ -1,0 +1,81 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: openbao-schema-init
+  namespace: openbao
+spec:
+  ttlSecondsAfterFinished: 300 # Clean up job 5 minutes post-completion
+  template:
+    metadata:
+      name: openbao-schema-init
+    spec:
+      restartPolicy: OnFailure
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 26
+        fsGroup: 26
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: psql-init
+          image: ghcr.io/cloudnative-pg/postgresql:18-minimal-trixie
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "64Mi"
+            limits:
+              cpu: "500m"
+              memory: "128Mi"
+          command:
+            - psql
+            - "postgres://openbao@openbao-db-rw:5432/openbao?sslmode=verify-full&sslcert=/etc/certs/tls.crt&sslkey=/etc/certs/tls.key&sslrootcert=/etc/ca/ca.crt"
+            - -c
+            - |
+              CREATE TABLE IF NOT EXISTS openbao_kv_store (
+                parent_path TEXT NOT NULL,
+                path        TEXT NOT NULL,
+                key         TEXT NOT NULL,
+                value       BYTEA,
+                CONSTRAINT openbao_kv_store_pkey PRIMARY KEY (path, key)
+              );
+              CREATE INDEX IF NOT EXISTS openbao_kv_store_idx
+                ON openbao_kv_store (parent_path);
+
+              CREATE TABLE IF NOT EXISTS openbao_ha_locks (
+                ha_key       TEXT NOT NULL,
+                ha_identity  TEXT NOT NULL,
+                ha_value     TEXT,
+                valid_until  TIMESTAMP WITH TIME ZONE NOT NULL,
+                CONSTRAINT openbao_ha_locks_pkey PRIMARY KEY (ha_key)
+              );
+
+              GRANT SELECT, INSERT, UPDATE, DELETE
+                ON TABLE openbao_kv_store, openbao_ha_locks
+                TO "openbao-rw";
+
+              REVOKE CONNECT ON DATABASE openbao FROM PUBLIC;
+              GRANT CONNECT ON DATABASE openbao TO "openbao-rw";
+
+              REVOKE ALL ON SCHEMA public FROM PUBLIC;
+              GRANT USAGE ON SCHEMA public TO "openbao-rw";
+          volumeMounts:
+            - name: certs
+              mountPath: /etc/certs
+              readOnly: true
+            - name: ca
+              mountPath: /etc/ca
+              readOnly: true
+      volumes:
+        - name: certs
+          secret:
+            secretName: role-openbao-client-cert
+            defaultMode: 0640
+        - name: ca
+          secret:
+            secretName: openbao-db-ca
+            defaultMode: 0640
