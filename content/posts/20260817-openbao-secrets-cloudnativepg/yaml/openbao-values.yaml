@@ -1,0 +1,63 @@
+global:
+  enabled: true
+
+server:
+  # No local persistence: all state lives in CNPG.
+  dataStorage:
+    enabled: false
+
+  ha:
+    enabled: true
+    replicas: 3
+
+    config: |
+      ui = true
+
+      listener "tcp" {
+        tls_disable = 1
+        address     = "[::]:8200"
+        cluster_address = "[::]:8201"
+      }
+
+      storage "postgresql" {
+        connection_url    = "postgres://openbao-rw@openbao-db-rw:5432/openbao?sslmode=verify-full&sslcert=/etc/openbao/certs/tls.crt&sslkey=/etc/openbao/certs/tls.key&sslrootcert=/etc/openbao/ca/ca.crt"
+        table             = "openbao_kv_store"
+        ha_table          = "openbao_ha_locks"
+        ha_enabled        = "true"
+        skip_create_table = "true"
+      }
+
+  # cnpg-playground only: with the Postgres nodes tainted and off limits,
+  # only two general-purpose nodes are left, one short of what three
+  # required-anti-affinity replicas need. Tolerating the control-plane
+  # taint gives OpenBao a third node to land on. Drop this in a cluster
+  # with three or more untainted worker nodes, and never carry it into
+  # production: workloads should not run on the control plane there.
+  tolerations:
+    - key: node-role.kubernetes.io/control-plane
+      operator: Exists
+      effect: NoSchedule
+
+  # Mount the openbao-rw DatabaseRole's client certificate and the
+  # cluster's client CA. "volumes"/"volumeMounts" are passed through to the
+  # Pod spec as-is; the chart's own "extraVolumes" field uses a different,
+  # simplified schema (type/name/path) that does not accept a raw Secret
+  # volume, and there is no "extraVolumeMounts" field for the server
+  # StatefulSet at all.
+  volumes:
+    - name: cnpg-client-cert
+      secret:
+        secretName: role-openbao-rw-client-cert
+        defaultMode: 0640
+    - name: cnpg-client-ca
+      secret:
+        secretName: openbao-db-ca
+        defaultMode: 0640
+
+  volumeMounts:
+    - name: cnpg-client-cert
+      mountPath: /etc/openbao/certs
+      readOnly: true
+    - name: cnpg-client-ca
+      mountPath: /etc/openbao/ca
+      readOnly: true
