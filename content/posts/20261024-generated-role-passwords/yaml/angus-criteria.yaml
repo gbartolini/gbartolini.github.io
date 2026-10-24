@@ -1,0 +1,21 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: angus
+spec:
+  cluster:
+    name: acdc
+  name: angus
+  login: true
+  password:
+    mode: generate
+    duration: 720h
+    renewBefore: 24h
+    criteria:
+      length: 32
+      digits: 6
+      symbols: 4
+      symbolCharacters: "!#$%&*+-?"
+      noUpper: false
+      allowRepeat: false
+  databaseRoleReclaimPolicy: delete
